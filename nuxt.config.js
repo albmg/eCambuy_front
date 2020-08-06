@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   axios: {
-    baseURL: 'http://localhost:3000/api',
+    baseURL: `${process.env.VUE_APP_API}`,
   },
   server: {
     port: 8000,
@@ -59,7 +59,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['@/plugins/axios'],
+  plugins: [],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
