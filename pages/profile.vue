@@ -12,7 +12,7 @@
         </div>
         <div class="mb-2">
           <strong>Fecha de registro:</strong>
-          {{ loggedInUser.signUpDate }}
+          {{ new Date(loggedInUser.signUpDate) }}
         </div>
         <v-divider></v-divider>
         <p class="mt-2"><strong>Productos creados</strong></p>
@@ -24,7 +24,8 @@
               class="mb-2"
               @click="showProduct(profile._id)"
             >
-              {{ profile.name }} <v-spacer></v-spacer> {{ profile.createdDate }}
+              {{ profile.name }} <v-spacer></v-spacer>
+              {{ new Date(profile.createdDate) }}
             </v-btn>
           </v-col>
         </div>
