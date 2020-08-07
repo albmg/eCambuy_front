@@ -8,7 +8,7 @@
           <v-text-field
             v-model="username"
             :rules="usernameRules"
-            label="Username"
+            label="Nombre de usuario"
             required
           ></v-text-field>
 
@@ -16,7 +16,15 @@
             v-model="password"
             :rules="passwordRules"
             type="password"
-            label="Password"
+            label="Contraseña"
+            required
+          ></v-text-field>
+
+          <v-text-field
+            v-model="repeatPassword"
+            :rules="[checkPasswords]"
+            type="password"
+            label="Repetir Contraseña"
             required
           ></v-text-field>
 
@@ -28,7 +36,7 @@
           ></v-text-field>
 
           <div class="text-center">
-            <v-btn block color="primary" nuxt @click="signup">
+            <v-btn type="submit" block color="primary" nuxt @click="signup">
               Enviar
             </v-btn>
           </div>
@@ -55,21 +63,39 @@ export default {
     valid: false,
     username: '',
     usernameRules: [
-      (v) => !!v || 'Name is required',
-      (v) => v.length <= 40 || 'Name must be less than 40 characters',
-      (v) => !v.includes(' ') || 'Name cannot contain spaces',
+      (v) => !!v || 'Nombre de usuario',
+      (v) =>
+        v.length <= 40 ||
+        'El nombre de usuario debe tener una longitud máxima de 40 caracteres',
+      // (v) => !v.includes(' ') || 'El nombre no puede contener espacios',
     ],
     password: '',
     passwordRules: [
-      (v) => !!v || 'Password is required',
-      (v) => v.length >= 6 || 'Password must be at least 6 characters',
+      (v) => !!v || 'Inserte una contraseña',
+      (v) =>
+        v.length >= 6 ||
+        'La contraseña debe tener una longitud mínima de 6 caracteres',
+    ],
+    repeatPassword: '',
+    repeatPasswordRules: [
+      (v) => !!v || 'Repita la contraseña',
+      (v) =>
+        v.length >= 6 ||
+        'La contraseña debe tener una longitud mínima de 6 caracteres',
     ],
     email: '',
     emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+      (v) => !!v || 'Introduzca e-mail',
+      (v) =>
+        /.+@.+/.test(v) ||
+        'Introduzca una dirección de correo electrónica válida',
     ],
   }),
+  computed: {
+    checkPasswords() {
+      return this.password === this.repeatPassword
+    },
+  },
   methods: {
     async signup() {
       const data = {
@@ -79,7 +105,7 @@ export default {
       }
       await this.$axios.$post('/auth/signup', data)
       this.$auth.loginWith('local', { data })
-      this.$router.push('/productList')
+      this.$router.push('/')
     },
   },
 }

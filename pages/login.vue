@@ -15,10 +15,13 @@
           <v-text-field
             v-model="password"
             :rules="passwordRules"
-            type="password"
+            :type="showPassword ? 'text' : 'password'"
             label="Contraseña"
             required
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"
           ></v-text-field>
+
           <div class="text-center">
             <v-btn block color="primary" nuxt @click="login">
               Enviar
@@ -43,19 +46,22 @@
 
 <script>
 export default {
-  data: () => ({
-    valid: false,
-    password: '',
-    passwordRules: [
-      (v) => !!v || 'Password is required',
-      (v) => v.length >= 6 || 'Password must be at least 6 characters',
-    ],
-    email: '',
-    emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-    ],
-  }),
+  data() {
+    return {
+      showPassword: false,
+      valid: false,
+      password: '',
+      passwordRules: [
+        (v) => !!v || 'Password is required',
+        (v) => v.length >= 6 || 'Password must be at least 6 characters',
+      ],
+      email: '',
+      emailRules: [
+        (v) => !!v || 'E-mail is required',
+        (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+    }
+  },
   methods: {
     login() {
       const data = {
@@ -63,7 +69,7 @@ export default {
         user_password: this.password,
       }
       this.$auth.loginWith('local', { data })
-      // this.$router.push('/productList')
+      this.$router.push('/')
     },
   },
 }
