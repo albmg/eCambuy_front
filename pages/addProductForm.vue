@@ -17,20 +17,7 @@
             label="image"
             required
           ></v-text-field>
-
-          <v-btn raised class="primary" @click="onPickFile">Upload Image</v-btn>
-          <input
-            ref="fileInput"
-            type="file"
-            style="display: none;"
-            accept="image/*"
-            @change="OnFilePicked"
-          />
-          <v-col cols="12" sm="8" md="10" lg="6" class="mx-auto">
-            <v-card>
-              <v-img :src="imagePreview" height="200" width="350"></v-img>
-            </v-card>
-          </v-col>
+          <SelectImage />
 
           <v-textarea
             v-model="description"
@@ -59,8 +46,13 @@
 </template>
 
 <script>
+import SelectImage from '~/components/SelectImage'
+
 export default {
   middleware: 'auth',
+  components: {
+    SelectImage,
+  },
   data() {
     return {
       valid: false,
@@ -84,7 +76,6 @@ export default {
         (v) =>
           v.length <= 325 || 'Description must be less than 325 characters',
       ],
-      imagePreview: null,
     }
   },
   methods: {
@@ -99,31 +90,6 @@ export default {
       const product = await this.$axios.$post('/products/me', data)
       console.log(product)
       this.$router.push(`/productList/${product._id}`)
-    },
-    onPickFile() {
-      this.$refs.fileInput.click()
-    },
-    OnFilePicked(e) {
-      // const files = event.target.files
-      // const filename = files[0].name
-      // if (filename.lastIndexOf('.') <= 0) {
-      //  return alert('Please add a valid file')
-      // }
-      // const fileReader = new FileReader()
-      // fileReader.addEventListener('load', () => {
-      //  this.image = fileReader.result
-      // })
-      // fileReader.readAsDataURL(files[0])
-      // this.imageToUpload = files[0]
-      const files = this.$refs.fileInput.files
-      if (files && files[0]) {
-        const fileReader = new FileReader()
-        fileReader.addEventListener('load', () => {
-          this.imagePreview = fileReader.result
-        })
-        fileReader.readAsDataURL(files[0])
-        this.imagePreview = files[0].name
-      }
     },
   },
 }
