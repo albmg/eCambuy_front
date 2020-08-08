@@ -5,9 +5,7 @@
         <v-layout v-if="isAuthenticated" mt-4 column align-center>
           <v-flex>
             <v-avatar size="100"
-              ><v-img src="https://randomuser.me/api/portraits/men/85.jpg"
-                >></v-img
-              ></v-avatar
+              ><v-img :src="loggedInUser.photo">></v-img></v-avatar
             >
           </v-flex>
           <v-flex>

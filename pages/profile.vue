@@ -2,10 +2,17 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="6" class="mx-auto">
+        <v-avatar size="50"
+          ><v-img :src="loggedInUser.photo"> </v-img
+        ></v-avatar>
+        <SelectImage v-model="image" @imageURL="setImageURL" />
+        <v-btn @click="addPhoto">Añadir foto</v-btn>
+
         <div class="mb-2">
           <strong>Username:</strong>
           {{ loggedInUser.username }}
         </div>
+
         <div class="mb-2">
           <strong>Email:</strong>
           {{ loggedInUser.email }}
@@ -36,12 +43,15 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import SelectImage from '~/components/SelectImage'
 
 export default {
   middleware: 'auth',
+  components: SelectImage,
   data() {
     return {
       profiles: '',
+      image: '',
     }
   },
   computed: {
@@ -58,6 +68,17 @@ export default {
     },
     showProduct(id) {
       this.$router.push(`/productList/${id}`)
+    },
+    async addPhoto() {
+      const photoData = {
+        photo: this.image,
+      }
+      const response = await this.$axios.$put('/users/me/', photoData)
+      console.log(response)
+      return response
+    },
+    setImageURL(imageURL) {
+      this.image = imageURL
     },
   },
 }
