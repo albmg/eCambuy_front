@@ -11,13 +11,8 @@
             required
           ></v-text-field>
 
-          <v-text-field
-            v-model="image"
-            :rules="imageRules"
-            label="image"
-            required
-          ></v-text-field>
-          <SelectImage />
+          <!--<PickImage v-model="image" @imageURL="setImageURL" />-->
+          <p>imagen: <SelectImage v-model="image" @imageURL="setImageURL" /></p>
 
           <v-textarea
             v-model="description"
@@ -90,6 +85,9 @@ export default {
       const product = await this.$axios.$post('/products/me', data)
       console.log(product)
       this.$router.push(`/productList/${product._id}`)
+    },
+    setImageURL(imageURL) {
+      this.image = imageURL
     },
   },
 }

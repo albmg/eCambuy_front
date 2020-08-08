@@ -78,7 +78,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth', '@nuxtjs/firebase'],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -105,4 +105,24 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+  /*
+   ** Nuxt-Firebase config options
+   */
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyBn_xKVOwJWPsWjrzHDKW7MsHf9cOMKfMo',
+      authDomain: 'ecambuy-c5b30.firebaseapp.com',
+      databaseURL: 'https://ecambuy-c5b30.firebaseio.com',
+      projectId: 'ecambuy-c5b30',
+      storageBucket: 'ecambuy-c5b30.appspot.com',
+      messagingSenderId: '455995256437',
+      appId: '1:455995256437:web:9c187e1ed42308817e523c',
+    },
+    services: {
+      auth: true, // Just as example. Can be any other service.
+      storage: true,
+      realtimeDb: true,
+      performance: true,
+    },
+  },
 }

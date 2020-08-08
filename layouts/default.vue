@@ -58,9 +58,9 @@
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
 
-      <nuxt-link to="/">
+      <v-btn to="/" :text="true">
         <v-toolbar-title v-text="title" />
-      </nuxt-link>
+      </v-btn>
 
       <!--<v-img src="~/static/01gloo.png"></v-img>-->
       <v-spacer />

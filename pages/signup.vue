@@ -63,7 +63,7 @@ export default {
     valid: false,
     username: '',
     usernameRules: [
-      (v) => !!v || 'Nombre de usuario',
+      (v) => !!v || 'Introduzca un nombre de usuario',
       (v) =>
         v.length <= 40 ||
         'El nombre de usuario debe tener una longitud máxima de 40 caracteres',
@@ -71,18 +71,12 @@ export default {
     ],
     password: '',
     passwordRules: [
-      (v) => !!v || 'Inserte una contraseña',
+      (v) => !!v || 'Introduzca una contraseña',
       (v) =>
         v.length >= 6 ||
         'La contraseña debe tener una longitud mínima de 6 caracteres',
     ],
     repeatPassword: '',
-    repeatPasswordRules: [
-      (v) => !!v || 'Repita la contraseña',
-      (v) =>
-        v.length >= 6 ||
-        'La contraseña debe tener una longitud mínima de 6 caracteres',
-    ],
     email: '',
     emailRules: [
       (v) => !!v || 'Introduzca e-mail',
@@ -94,6 +88,8 @@ export default {
   computed: {
     checkPasswords() {
       return this.password === this.repeatPassword
+        ? true
+        : 'Las contraseñas no coinciden!'
     },
   },
   methods: {
