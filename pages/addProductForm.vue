@@ -122,8 +122,7 @@ export default {
           this.imagePreview = fileReader.result
         })
         fileReader.readAsDataURL(files[0])
-        this.imagePreview = files[0]
-        console.log(this.imagePreview)
+        this.imagePreview = files[0].name
       }
     },
   },
