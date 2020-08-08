@@ -11,7 +11,6 @@
             required
           ></v-text-field>
 
-          <!--<PickImage v-model="image" @imageURL="setImageURL" />-->
           <p>imagen: <SelectImage v-model="image" @imageURL="setImageURL" /></p>
 
           <v-textarea

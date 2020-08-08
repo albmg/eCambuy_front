@@ -5,9 +5,11 @@
         <v-card>
           <v-card-title>Perfil de usuario</v-card-title>
           <v-divider></v-divider>
-          <v-avatar class="mt-2" size="100"
-            ><v-img :src="loggedInUser.photo"> </v-img
-          ></v-avatar>
+          <div>
+            <v-avatar class="mt-2" size="100"
+              ><v-img :src="loggedInUser.photo"> </v-img>
+            </v-avatar>
+          </div>
 
           <v-card-title>
             {{ loggedInUser.username }}

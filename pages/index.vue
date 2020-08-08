@@ -21,6 +21,7 @@
 
         <div class="text-center mt-12">
           <v-btn color="success" nuxt to="productList">
+            <v-icon left>mdi-eye</v-icon>
             Ver todos los productos
           </v-btn>
         </div>

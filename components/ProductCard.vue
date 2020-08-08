@@ -19,6 +19,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="success" block :to="`/productList/${products._id}`">
+          <v-icon left>mdi-eye</v-icon>
           Ver producto
         </v-btn>
         <v-spacer></v-spacer>

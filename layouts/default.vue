@@ -50,17 +50,19 @@
       </v-container>
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar app class="navbar">
       <v-app-bar-nav-icon
         class="hidden-sm-and-up"
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
 
-      <v-btn to="/" :text="true">
-        <v-toolbar-title v-text="title" />
-      </v-btn>
+      <v-col cols="8" md="4">
+        <nuxt-link to="/"><img class="mt-2" src="/logo.png" /></nuxt-link>
+      </v-col>
+      <!--<v-btn to="/" :text="true">-->
+      <!--<v-toolbar-title v-text="title" />-->
+      <!--</v-btn>-->
 
-      <!--<v-img src="~/static/01gloo.png"></v-img>-->
       <v-spacer />
       <v-toolbar-items class="hidden-xs-only mt-6">
         <div class="mr-4">
@@ -84,7 +86,7 @@
           >
         </div>
         <div v-else>
-          <v-btn color="success" to="/login">
+          <v-btn color="info" to="/login">
             <v-icon left>mdi-login</v-icon>Iniciar sesión</v-btn
           >
           <!--<v-btn color="success" to="/signup">Regístrate</v-btn>-->
@@ -147,3 +149,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.navbar {
+  background-color: white !important;
+}
+</style>
