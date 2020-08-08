@@ -1,41 +1,51 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="6" class="mx-auto">
-        <v-avatar size="50"
-          ><v-img :src="loggedInUser.photo"> </v-img
-        ></v-avatar>
-        <SelectImage v-model="image" @imageURL="setImageURL" />
-        <v-btn @click="addPhoto">Añadir foto</v-btn>
+      <v-col cols="12" md="4" class="mx-auto">
+        <v-card>
+          <v-card-title>Perfil de usuario</v-card-title>
+          <v-divider></v-divider>
+          <v-avatar class="mt-2" size="100"
+            ><v-img :src="loggedInUser.photo"> </v-img
+          ></v-avatar>
 
-        <div class="mb-2">
-          <strong>Username:</strong>
-          {{ loggedInUser.username }}
-        </div>
+          <v-card-title>
+            {{ loggedInUser.username }}
+          </v-card-title>
 
-        <div class="mb-2">
-          <strong>Email:</strong>
-          {{ loggedInUser.email }}
-        </div>
-        <div class="mb-2">
-          <strong>Fecha de registro:</strong>
-          {{ new Date(loggedInUser.signUpDate) }}
-        </div>
-        <v-divider></v-divider>
-        <p class="mt-2"><strong>Productos creados</strong></p>
-        <div v-for="(profile, idx) in profiles" :key="idx">
-          <v-col cols="12" md="12">
+          <v-card-subtitle>
+            {{ loggedInUser.email }}
+          </v-card-subtitle>
+          <v-card-subtitle class="mb-2">
+            <strong>Fecha de registro:</strong>
+            {{ new Date(loggedInUser.signUpDate) }}
+          </v-card-subtitle>
+          <v-card-actions>
+            <SelectImage v-model="image" @imageURL="setImageURL" />
+            <v-btn class="mb-6" @click="addPhoto">Añadir foto</v-btn>
+          </v-card-actions>
+        </v-card>
+
+        <v-card>
+          <v-card-title class="mt-2"
+            ><strong>Productos creados</strong></v-card-title
+          >
+          <v-divider></v-divider>
+          <v-card-subtitle v-for="(profile, idx) in profiles" :key="idx">
+            <p>
+              <strong>{{ profile.name }}</strong>
+            </p>
+            <p>{{ new Date(profile.createdDate) }}</p>
             <v-btn
-              color="success"
-              block
               class="mb-2"
+              color="teal"
+              dark
               @click="showProduct(profile._id)"
+              ><v-icon left>mdi-eye</v-icon> Ver producto</v-btn
             >
-              {{ profile.name }} <v-spacer></v-spacer>
-              {{ new Date(profile.createdDate) }}
-            </v-btn>
-          </v-col>
-        </div>
+            <v-divider></v-divider>
+          </v-card-subtitle>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

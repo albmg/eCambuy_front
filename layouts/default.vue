@@ -64,6 +64,12 @@
       <v-spacer />
       <v-toolbar-items class="hidden-xs-only mt-6">
         <div class="mr-4">
+          <v-btn color="success" to="/productList">
+            <v-icon left>mdi-format-list-checkbox</v-icon> Lista de productos
+          </v-btn>
+        </div>
+
+        <div class="mr-4">
           <v-btn color="success" to="/addProductForm">
             <v-icon left>mdi-currency-eur</v-icon> Vender
           </v-btn>
