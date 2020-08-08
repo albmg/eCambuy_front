@@ -58,7 +58,7 @@ export default {
       const storageRef = this.$fireStorage.ref().child(fileName)
       try {
         const url = await storageRef.getDownloadURL()
-        this.$emit('imagePreview', url)
+        this.$emit('imageURL', url)
       } catch (e) {
         alert(e.message)
       }
