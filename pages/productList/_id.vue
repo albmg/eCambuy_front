@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <v-col cols="12" md="8" class="mx-auto">
+    <v-col cols="12" sm="10" md="10" lg="6" class="mx-auto">
       <v-card>
         <v-card-title>Vendedor:{{ owner && owner.username }}</v-card-title>
         <v-img class="white--text align-end" height="200px" :src="image">
@@ -24,21 +24,39 @@
           <v-btn color="info" text>
             Chat
           </v-btn>
+          <v-spacer></v-spacer>
+          <div v-if="isAuthenticated && loggedInUser._id === owner._id">
+            <v-btn class="mb-2" block color="orange" @click="editProduct"
+              >Editar Producto</v-btn
+            >
+
+            <v-btn block color="error" @click="deleteProduct"
+              >Borrar Producto</v-btn
+            >
+          </div>
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-col cols="12" md="8" class="mx-auto mt-3">
-      <v-card>
-        <div v-if="isAuthenticated && loggedInUser._id === owner._id">
-          <v-btn class="mb-2" block color="orange" @click="editProduct"
-            >Editar Producto</v-btn
-          >
 
-          <v-btn block color="error" @click="deleteProduct"
-            >Borrar Producto</v-btn
-          >
+    <v-col
+      v-if="isAuthenticated"
+      cols="12"
+      sm="10"
+      md="10"
+      lg="6"
+      class="mx-auto"
+    >
+      <div v-for="(message, idx) in messages" :key="idx" class="mb-2">
+        <div>
+          <v-card>
+            <v-card-subtitle
+              >{{ message.userId.username }} a las
+              {{ new Date(message.date) }} dice:
+            </v-card-subtitle>
+            <v-card-title>{{ message.text }}</v-card-title>
+          </v-card>
         </div>
-      </v-card>
+      </div>
     </v-col>
   </v-main>
 </template>
@@ -55,12 +73,15 @@ export default {
     return {
       id: this.$route.params.id,
       dialog: false,
+      messages: [],
     }
   },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
-
+  async mounted() {
+    this.messages = await this.showMessages()
+  },
   methods: {
     editProduct() {
       this.$router.push(`/editProduct/${this.id}`)
@@ -71,6 +92,13 @@ export default {
         await this.$axios.$delete(`/products/me/${this.id}`)
         this.$router.push('/addProductForm')
       }
+    },
+    async showMessages() {
+      const response = await this.$axios.$get(
+        `/products/me/${this.id}/messages`
+      )
+      console.log(response)
+      return response
     },
   },
 }
