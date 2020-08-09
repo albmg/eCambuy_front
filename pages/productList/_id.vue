@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <v-container>
     <v-col cols="12" sm="10" md="10" lg="6" class="mx-auto">
       <v-card>
         <v-card-title>Vendedor:{{ owner && owner.username }}</v-card-title>
@@ -17,15 +17,15 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn color="success" text to="/productList">
+          <!--<v-btn color="success" text to="/productList">
             Lista de productos
           </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="info" text>
-            Chat
-          </v-btn>
-          <v-spacer></v-spacer>
-          <div v-if="isAuthenticated && loggedInUser._id === owner._id">
+          <v-spacer></v-spacer>-->
+          <v-col
+            v-if="isAuthenticated && loggedInUser._id === owner._id"
+            cols="12"
+            md="12"
+          >
             <v-btn class="mb-2" block color="orange" @click="editProduct"
               >Editar Producto</v-btn
             >
@@ -33,32 +33,56 @@
             <v-btn block color="error" @click="deleteProduct"
               >Borrar Producto</v-btn
             >
-          </div>
+          </v-col>
         </v-card-actions>
       </v-card>
-    </v-col>
-
-    <v-col
-      v-if="isAuthenticated"
-      cols="12"
-      sm="10"
-      md="10"
-      lg="6"
-      class="mx-auto"
-    >
-      <div v-for="(message, idx) in messages" :key="idx" class="mb-2">
-        <div>
-          <v-card>
-            <v-card-subtitle
-              >{{ message.userId.username }} a las
-              {{ new Date(message.date) }} dice:
-            </v-card-subtitle>
-            <v-card-title>{{ message.text }}</v-card-title>
-          </v-card>
-        </div>
+      <div v-if="isAuthenticated">
+        <v-btn class="mt-2" color="info" block @click="dialog = !dialog">
+          Chat
+        </v-btn>
       </div>
     </v-col>
-  </v-main>
+    <v-col cols="12" md="6">
+      <v-dialog v-model="dialog" class="chat" max-width="680px">
+        <v-row cols="12" class="mx-auto">
+          <v-btn color="info" @click="dialogMessage = !dialogMessage"
+            ><v-icon left>mdi-message-plus-outline</v-icon>Añadir nuevo
+            mensaje</v-btn
+          >
+          <v-spacer></v-spacer>
+          <v-btn color="error" @click="dialog = !dialog"
+            ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
+          >
+        </v-row>
+
+        <div v-for="(message, idx) in messages" :key="idx" class="mb-2">
+          <div>
+            <v-card>
+              <v-card-subtitle
+                ><v-img width="50" :src="message.userId.photo"></v-img>
+                {{ message.userId.username }} a las
+                {{ new Date(message.date) }} dice:
+              </v-card-subtitle>
+              <v-card-title>{{ message.text }}</v-card-title>
+            </v-card>
+          </div>
+        </div>
+      </v-dialog>
+      <v-dialog v-model="dialogMessage" max-width="680px">
+        <v-card class="text-center">
+          <v-text-field v-model="text"></v-text-field>
+          <v-col cols="12" md="6" class="mx-auto">
+            <v-btn color="success" @click="createMessage"
+              ><v-icon left>mdi-message-plus-outline</v-icon>enviar</v-btn
+            >
+            <v-btn color="error" @click="dialogMessage = !dialogMessage"
+              ><v-icon left>mdi-close</v-icon>cerrar</v-btn
+            >
+          </v-col>
+        </v-card>
+      </v-dialog>
+    </v-col>
+  </v-container>
 </template>
 
 <script>
@@ -73,15 +97,19 @@ export default {
     return {
       id: this.$route.params.id,
       dialog: false,
+      dialogMessage: false,
       messages: [],
+      text: '',
     }
   },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
-  async mounted() {
+  async created() {
     this.messages = await this.showMessages()
+    console.log(this.messages)
   },
+
   methods: {
     editProduct() {
       this.$router.push(`/editProduct/${this.id}`)
@@ -94,12 +122,27 @@ export default {
       }
     },
     async showMessages() {
-      const response = await this.$axios.$get(
-        `/products/me/${this.id}/messages`
-      )
+      const response = await this.$axios.$get(`/products/${this.id}/messages`)
       console.log(response)
       return response
+    },
+    async createMessage() {
+      const data = {
+        text: this.text,
+      }
+      const response = await this.$axios.$post(
+        `/products/me/${this.id}/messages`,
+        data
+      )
+      console.log(response)
     },
   },
 }
 </script>
+
+<style scoped>
+.chat {
+  position: absolute;
+  top: 50px;
+}
+</style>
