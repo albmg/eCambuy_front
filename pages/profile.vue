@@ -24,7 +24,9 @@
           </v-card-subtitle>
           <v-card-actions>
             <SelectImage v-model="image" @imageURL="setImageURL" />
-            <v-btn class="mb-6" @click="addPhoto">Añadir foto</v-btn>
+            <v-btn small class="mb-6" color="success" @click="addPhoto"
+              >Actualizar foto</v-btn
+            >
           </v-card-actions>
         </v-card>
 
@@ -75,7 +77,7 @@ export default {
   methods: {
     async getProfile() {
       const response = await this.$axios.$get('/users/me/')
-      console.log(response.productsCreated)
+      // console.log(response.productsCreated)
       return response.productsCreated
     },
     showProduct(id) {
@@ -86,7 +88,7 @@ export default {
         photo: this.image,
       }
       const response = await this.$axios.$put('/users/me/', photoData)
-      console.log(response)
+      // console.log(response)
       return response
     },
     setImageURL(imageURL) {

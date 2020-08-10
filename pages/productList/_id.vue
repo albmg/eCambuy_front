@@ -64,6 +64,7 @@
                 {{ new Date(message.date) }} dice:
               </v-card-subtitle>
               <v-card-title>{{ message.text }}</v-card-title>
+              <v-btn @click="deleteMessage(message._id)">borrar mensaje</v-btn>
             </v-card>
           </div>
         </div>
@@ -107,7 +108,6 @@ export default {
   },
   async created() {
     this.messages = await this.showMessages()
-    console.log(this.messages)
   },
 
   methods: {
@@ -123,7 +123,7 @@ export default {
     },
     async showMessages() {
       const response = await this.$axios.$get(`/products/${this.id}/messages`)
-      console.log(response)
+      // console.log(response)
       return response
     },
     async createMessage() {
@@ -134,7 +134,13 @@ export default {
         `/products/me/${this.id}/messages`,
         data
       )
-      console.log(response)
+      return response
+    },
+    async deleteMessage(id) {
+      const response = confirm('Estás seguro de borrar el mensaje?')
+      if (response) {
+        await this.$axios.$delete(`/products/me/${this.id}/messages/${id}`)
+      }
     },
   },
 }
