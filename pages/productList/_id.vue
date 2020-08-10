@@ -2,20 +2,50 @@
   <v-container>
     <v-col cols="12" sm="10" md="10" lg="6" class="mx-auto">
       <v-card>
-        <v-card-title>Vendedor:{{ owner && owner.username }}</v-card-title>
+        <v-list-item>
+          <v-list-item-avatar height="50" color="grey"
+            ><v-img :src="owner.photo"> </v-img
+          ></v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title class="headline">{{
+              owner && owner.username
+            }}</v-list-item-title>
+            <v-list-item-subtitle>{{
+              new Date(createdDate).toString().substr(0, 15)
+            }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <!--<v-card>
+          <v-row class="mx-auto">
+            <v-avatar class="ml-2 mt-4" height="50">
+              <v-img :src="owner.photo"> </v-img>
+            </v-avatar>
+            <v-card-title>{{ owner && owner.username }}</v-card-title>
+            <v-card-text class="date ml-14">{{
+              new Date(createdDate).toString().substr(0, 15)
+            }}</v-card-text>
+          </v-row>
+        </v-card>-->
         <v-img class="white--text align-end" height="200px" :src="image">
         </v-img>
-        <v-spacer></v-spacer>
-        <v-card-title class="pb-0">{{ name }}</v-card-title>
-        <v-spacer></v-spacer>
-        <v-card-subtitle class="pb-0">Precio: {{ price }}</v-card-subtitle>
-        <v-card-subtitle class="pb-0"
-          >Municipio: {{ location }}</v-card-subtitle
+
+        <v-card-title class="pb-0"
+          ><v-icon left>mdi-fruit-watermelon</v-icon>{{ name }}</v-card-title
         >
-        <v-card-text class="text--primary">
-          <div>Descripción: {{ description }}</div>
+        <v-divider></v-divider>
+        <v-card-text color="blue" class="text--primary">
+          <v-icon left>mdi-card-text-outline</v-icon> {{ description }}
         </v-card-text>
         <v-divider></v-divider>
+        <v-card-subtitle class="pb-0"
+          ><v-icon left>mdi-currency-eur</v-icon> Precio:
+          {{ price }} Kg</v-card-subtitle
+        >
+        <v-card-subtitle class="pb-0 mb-2"
+          ><v-icon left>mdi-google-maps</v-icon> Municipio:
+          {{ location }}</v-card-subtitle
+        >
+
         <v-card-actions>
           <!--<v-btn color="success" text to="/productList">
             Lista de productos
@@ -26,12 +56,14 @@
             cols="12"
             md="12"
           >
+            <v-divider></v-divider>
             <v-btn class="mb-2" block color="orange" @click="editProduct"
-              >Editar Producto</v-btn
+              ><v-icon left>mdi-clipboard-edit-outline</v-icon>Editar
+              Producto</v-btn
             >
 
             <v-btn block color="error" @click="deleteProduct"
-              >Borrar Producto</v-btn
+              ><v-icon left>mdi-delete</v-icon>Borrar Producto</v-btn
             >
           </v-col>
         </v-card-actions>
@@ -71,14 +103,6 @@
                 <v-btn
                   small
                   class="mx-auto"
-                  color="warning"
-                  @click="dialogEditMessage = !dialogEditMessage"
-                  ><v-icon left>mdi-clipboard-edit</v-icon> editar
-                  mensaje</v-btn
-                >
-                <v-btn
-                  small
-                  class="mx-auto"
                   color="error"
                   @click="deleteMessage(message._id)"
                   ><v-icon left>mdi-delete</v-icon> borrar mensaje</v-btn
@@ -101,19 +125,6 @@
           </v-col>
         </v-card>
       </v-dialog>
-      <v-dialog v-model="dialogEditMessage" max-width="680px">
-        <v-card class="text-center">
-          <v-text-field v-model="text" label="Editar mensaje"></v-text-field>
-          <v-col cols="12" md="6" class="mx-auto">
-            <v-btn color="success" @click="editMessage(message._id)"
-              ><v-icon left>mdi-send</v-icon>Aceptar</v-btn
-            >
-            <v-btn color="error" @click="dialogEditMessage = !dialogEditMessage"
-              ><v-icon left>mdi-close</v-icon>cerrar</v-btn
-            >
-          </v-col>
-        </v-card>
-      </v-dialog>
     </v-col>
   </v-container>
 </template>
@@ -124,6 +135,7 @@ import { mapGetters } from 'vuex'
 export default {
   async asyncData({ $axios, params }) {
     const response = await $axios.$get(`/products/${params.id}`)
+    console.log(response)
     return { ...response }
   },
   data() {
@@ -131,7 +143,6 @@ export default {
       id: this.$route.params.id,
       dialog: false,
       dialogMessage: false,
-      dialogEditMessage: false,
       messages: [],
       text: '',
     }
@@ -175,19 +186,12 @@ export default {
         await this.$axios.$delete(`/products/me/${this.id}/messages/${id}`)
       }
     },
-    async editMessage(id) {
-      const data = {
-        text: this.text,
-      }
-      await this.$axios.$put(`/products/me/${this.id}/messages/${id}`, data)
-    },
   },
 }
 </script>
 
 <style scoped>
-.chat {
-  position: absolute;
-  top: 50px;
+.date {
+  font-size: 0.8em;
 }
 </style>

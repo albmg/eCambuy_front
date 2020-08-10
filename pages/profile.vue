@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="4" class="mx-auto">
+      <v-col cols="12" md="5" class="mx-auto">
         <v-card>
           <v-card-title>Perfil de usuario</v-card-title>
           <v-divider></v-divider>

@@ -3,17 +3,25 @@
     <v-card>
       <v-img class="white--text align-end" height="200px" :src="products.image">
       </v-img>
-      <v-card-title class="pb-2">{{ products.name }}</v-card-title>
+      <v-card-title class="pb-2">
+        <v-icon left>mdi-fruit-watermelon</v-icon
+        >{{ products.name }}</v-card-title
+      >
+      <v-divider></v-divider>
 
       <v-card-text class="text--primary">
-        <div>Descripción: {{ products.description }}</div>
+        <v-icon left>mdi-card-text-outline</v-icon>Descripción:
+        {{ products.description }}
       </v-card-text>
+      <v-divider></v-divider>
 
       <v-card-subtitle class="pb-0"
-        >Precio: {{ products.price }}</v-card-subtitle
+        ><v-icon left>mdi-currency-eur</v-icon>Precio:
+        {{ products.price }} Kg</v-card-subtitle
       >
-      <v-card-subtitle class="pb-0"
-        >Municipio: {{ products.location }}</v-card-subtitle
+      <v-card-subtitle class="pb-0 mb-2">
+        <v-icon left>mdi-google-maps</v-icon>Municipio:
+        {{ products.location }}</v-card-subtitle
       >
       <v-divider></v-divider>
       <v-card-actions>
