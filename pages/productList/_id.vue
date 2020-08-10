@@ -38,7 +38,7 @@
       </v-card>
       <div v-if="isAuthenticated">
         <v-btn class="mt-2" color="info" block @click="dialog = !dialog">
-          Chat
+          <v-icon left>mdi-chat-outline</v-icon> Chat
         </v-btn>
       </div>
     </v-col>
@@ -58,25 +58,57 @@
         <div v-for="(message, idx) in messages" :key="idx" class="mb-2">
           <div>
             <v-card>
-              <v-card-subtitle
-                ><v-img width="50" :src="message.userId.photo"></v-img>
-                {{ message.userId.username }} a las
-                {{ new Date(message.date) }} dice:
+              <v-card-subtitle>
+                <v-img width="50" :src="message.userId.photo"></v-img>
+                <p>
+                  <strong>{{ message.userId.username }}</strong>
+                </p>
+                {{ new Date(message.date) }}
+                <v-divider></v-divider>
               </v-card-subtitle>
               <v-card-title>{{ message.text }}</v-card-title>
-              <v-btn @click="deleteMessage(message._id)">borrar mensaje</v-btn>
+              <v-card-actions>
+                <v-btn
+                  small
+                  class="mx-auto"
+                  color="warning"
+                  @click="dialogEditMessage = !dialogEditMessage"
+                  ><v-icon left>mdi-clipboard-edit</v-icon> editar
+                  mensaje</v-btn
+                >
+                <v-btn
+                  small
+                  class="mx-auto"
+                  color="error"
+                  @click="deleteMessage(message._id)"
+                  ><v-icon left>mdi-delete</v-icon> borrar mensaje</v-btn
+                >
+              </v-card-actions>
             </v-card>
           </div>
         </div>
       </v-dialog>
       <v-dialog v-model="dialogMessage" max-width="680px">
         <v-card class="text-center">
-          <v-text-field v-model="text"></v-text-field>
+          <v-text-field v-model="text" label="Añadir mensaje"></v-text-field>
           <v-col cols="12" md="6" class="mx-auto">
             <v-btn color="success" @click="createMessage"
-              ><v-icon left>mdi-message-plus-outline</v-icon>enviar</v-btn
+              ><v-icon left>mdi-send</v-icon>enviar</v-btn
             >
             <v-btn color="error" @click="dialogMessage = !dialogMessage"
+              ><v-icon left>mdi-close</v-icon>cerrar</v-btn
+            >
+          </v-col>
+        </v-card>
+      </v-dialog>
+      <v-dialog v-model="dialogEditMessage" max-width="680px">
+        <v-card class="text-center">
+          <v-text-field v-model="text" label="Editar mensaje"></v-text-field>
+          <v-col cols="12" md="6" class="mx-auto">
+            <v-btn color="success" @click="editMessage(message._id)"
+              ><v-icon left>mdi-send</v-icon>Aceptar</v-btn
+            >
+            <v-btn color="error" @click="dialogEditMessage = !dialogEditMessage"
               ><v-icon left>mdi-close</v-icon>cerrar</v-btn
             >
           </v-col>
@@ -99,6 +131,7 @@ export default {
       id: this.$route.params.id,
       dialog: false,
       dialogMessage: false,
+      dialogEditMessage: false,
       messages: [],
       text: '',
     }
@@ -141,6 +174,12 @@ export default {
       if (response) {
         await this.$axios.$delete(`/products/me/${this.id}/messages/${id}`)
       }
+    },
+    async editMessage(id) {
+      const data = {
+        text: this.text,
+      }
+      await this.$axios.$put(`/products/me/${this.id}/messages/${id}`, data)
     },
   },
 }

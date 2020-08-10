@@ -52,7 +52,7 @@
 
     <v-app-bar app class="navbar">
       <v-app-bar-nav-icon
-        class="hidden-md-and-up"
+        class="hidden-sm-and-up"
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
 
@@ -64,7 +64,7 @@
       <!--</v-btn>-->
 
       <v-spacer />
-      <v-toolbar-items class="hidden-sm-only mt-6">
+      <v-toolbar-items class="hidden-xs-only mt-6">
         <div class="mr-4">
           <v-btn color="success" to="/productList">
             <v-icon left>mdi-format-list-checkbox</v-icon> Lista de productos

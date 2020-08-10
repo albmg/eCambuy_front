@@ -15,7 +15,16 @@
         <div class="title">
           {{ lastProduct.name }}
         </div>
-        <!--<v-sheet height="100%" tile>
+        <!--<div class="subheading">{{ lastProduct.name }}</div>
+        <template v-slot:placeholder>
+          <v-row class="fill-height ma-0" align="center" justify="center">
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
+        <v-sheet height="100%" tile>
           <v-row class="fill-height" align="center" justify="center">
             <div class="display-3">
               <v-img height="200px" :src="lastProduct.image" />
