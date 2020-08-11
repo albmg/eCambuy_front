@@ -9,7 +9,8 @@
           <span class="orange--text mb-4">Para comprar o vender productos</span>
 
           <v-spacer />
-          <v-btn color="success" nuxt to="/signup">
+          <v-btn color="success" nuxt to="/signup"
+            ><v-icon left>mdi-login-variant</v-icon>
             Crea una cuenta
           </v-btn>
         </div>

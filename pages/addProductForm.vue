@@ -8,6 +8,7 @@
             v-model="name"
             :rules="nameRules"
             label="name"
+            prepend-inner-icon="mdi-fruit-cherries"
             required
           ></v-text-field>
 
@@ -21,12 +22,19 @@
             required
           ></v-textarea>
 
-          <v-text-field v-model="price" label="price"> </v-text-field>
+          <v-text-field
+            v-model="price"
+            label="price"
+            prepend-inner-icon="mdi-currency-eur"
+            suffix="/Kg"
+          >
+          </v-text-field>
 
           <v-text-field
             v-model="location"
             :rules="locationRules"
             label="location"
+            prepend-inner-icon="mdi-map-marker"
             required
           ></v-text-field>
 

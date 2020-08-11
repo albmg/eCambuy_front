@@ -61,7 +61,14 @@
       </div>
       <v-dialog v-model="dialogMessage" max-width="680px">
         <v-card class="text-center">
-          <v-text-field v-model="text" label="Añadir mensaje"></v-text-field>
+          <v-text-field
+            v-model="text"
+            class="text-center"
+            label="Añadir mensaje"
+            outlined
+            shaped
+            >Añade un mensaje para empezar un chat con el owner</v-text-field
+          >
           <v-col cols="12" md="6" class="mx-auto">
             <v-btn color="success" @click="startChat(owner._id)"
               ><v-icon left>mdi-send</v-icon>enviar</v-btn
@@ -76,10 +83,12 @@
     <v-col cols="12" md="6">
       <v-dialog v-model="dialog" class="chat" max-width="680px">
         <v-row cols="12" class="mx-auto">
-          <v-btn color="info" @click="dialogMessage = !dialogMessage"
-            ><v-icon left>mdi-message-plus-outline</v-icon>Añadir nuevo
-            mensaje</v-btn
-          >
+          <div v-if="messages.length === 0">
+            <v-btn color="info" @click="dialogMessage = !dialogMessage"
+              ><v-icon left>mdi-message-plus-outline</v-icon>Añadir nuevo
+              mensaje</v-btn
+            >
+          </div>
           <v-spacer></v-spacer>
           <v-btn color="error" @click="dialog = !dialog"
             ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
@@ -118,19 +127,24 @@
 
               <v-card-title>{{ message.text }}</v-card-title>
 
-              <v-card-actions>
-                <v-btn
-                  small
-                  class="mx-auto"
-                  color="error"
-                  @click="deleteMessage(message._id)"
-                  ><v-icon left>mdi-delete</v-icon> borrar mensaje</v-btn
-                >
-              </v-card-actions>
+              <div v-if="message.userId._id === loggedInUser._id">
+                <v-card-actions>
+                  <v-btn
+                    small
+                    class="mx-auto"
+                    color="error"
+                    @click="deleteMessage(message._id)"
+                    ><v-icon left>mdi-delete</v-icon> borrar mensaje</v-btn
+                  >
+                </v-card-actions>
+              </div>
               <v-divider></v-divider>
               <div v-if="message.userId._id !== loggedInUser._id">
                 <v-card-text style="background-color: aqua;"
-                  ><v-text-field v-model="text"></v-text-field>
+                  ><v-text-field
+                    v-model="text"
+                    label="Responder mensaje"
+                  ></v-text-field>
                 </v-card-text>
                 <v-card-actions>
                   <v-btn
@@ -165,6 +179,7 @@ export default {
       dialogMessage: false,
       messages: [],
       text: '',
+      sheet: false,
     }
   },
   computed: {
