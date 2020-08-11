@@ -10,6 +10,7 @@
               :filled="filled"
               :clearable="clearable"
               :counter="counterEn ? counter : false"
+              prepend-icon="mdi-magnify"
             ></v-text-field>
           </v-sheet>
         </v-col>
