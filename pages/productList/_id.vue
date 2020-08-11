@@ -87,64 +87,64 @@
         </v-row>
 
         <div v-for="(message, idx) in messages" :key="idx" class="mb-2">
-          <!--<div
+          <div
             v-if="
+              loggedInUser._id === owner._id ||
               loggedInUser._id === message.userId._id ||
-              loggedInUser._id === (message.toUserId && message.toUserId._id) ||
-              message.userId._id !== (message.toUserId && message.toUserId._id)
+              loggedInUser._id === (message.toUserId && message.toUserId._id)
             "
-          >-->
-          <v-card>
-            <v-list-item style="background-color: #dfe4e3;">
-              <v-list-item-avatar height="50" color="grey"
-                ><v-img :src="message.userId.photo"> </v-img
-              ></v-list-item-avatar>
-              <v-list-item-content>
-                <v-list-item-title class="headline">{{
-                  message.userId.username
-                }}</v-list-item-title>
-                <v-list-item-subtitle>{{
-                  new Date(message.date).toString().substr(0, 15)
-                }}</v-list-item-subtitle>
-                <v-list-item-title class="headline"
-                  >para ->
-                  {{
-                    message.toUserId && message.toUserId.username
-                  }}</v-list-item-title
-                >
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider></v-divider>
+          >
+            <v-card>
+              <v-list-item style="background-color: #dfe4e3;">
+                <v-list-item-avatar height="50" color="grey"
+                  ><v-img :src="message.userId.photo"> </v-img
+                ></v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title class="headline">{{
+                    message.userId.username
+                  }}</v-list-item-title>
+                  <v-list-item-subtitle>{{
+                    new Date(message.date).toString().substr(0, 15)
+                  }}</v-list-item-subtitle>
+                  <v-list-item-title class="headline"
+                    >para ->
+                    {{
+                      message.toUserId && message.toUserId.username
+                    }}</v-list-item-title
+                  >
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider></v-divider>
 
-            <v-card-title>{{ message.text }}</v-card-title>
+              <v-card-title>{{ message.text }}</v-card-title>
 
-            <v-card-actions>
-              <v-btn
-                small
-                class="mx-auto"
-                color="error"
-                @click="deleteMessage(message._id)"
-                ><v-icon left>mdi-delete</v-icon> borrar mensaje</v-btn
-              >
-            </v-card-actions>
-            <v-divider></v-divider>
-            <div v-if="message.userId._id !== loggedInUser._id">
-              <v-card-text style="background-color: aqua;"
-                ><v-text-field v-model="text"></v-text-field>
-              </v-card-text>
               <v-card-actions>
                 <v-btn
                   small
                   class="mx-auto"
-                  color="info"
-                  @click="createMessage(message.userId._id)"
-                  ><v-icon left>mdi-delete</v-icon> Responder mensaje</v-btn
+                  color="error"
+                  @click="deleteMessage(message._id)"
+                  ><v-icon left>mdi-delete</v-icon> borrar mensaje</v-btn
                 >
               </v-card-actions>
-            </div>
-          </v-card>
+              <v-divider></v-divider>
+              <div v-if="message.userId._id !== loggedInUser._id">
+                <v-card-text style="background-color: aqua;"
+                  ><v-text-field v-model="text"></v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn
+                    small
+                    class="mx-auto"
+                    color="info"
+                    @click="createMessage(message.userId._id)"
+                    ><v-icon left>mdi-delete</v-icon> Responder mensaje</v-btn
+                  >
+                </v-card-actions>
+              </div>
+            </v-card>
+          </div>
         </div>
-        <!--</div>-->
       </v-dialog>
     </v-col>
   </v-container>
