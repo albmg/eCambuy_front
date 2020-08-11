@@ -33,7 +33,7 @@
       </v-list>
       <v-container>
         <div v-if="isAuthenticated" class="text-center">
-          <v-btn color="dark" dark @click="logout">
+          <v-btn color="dark" text @click="logout">
             <v-icon left>mdi-logout</v-icon>Desconectar</v-btn
           >
         </div>
@@ -66,27 +66,27 @@
       <v-spacer />
       <v-toolbar-items class="hidden-xs-only mt-6">
         <div class="mr-4">
-          <v-btn color="success" to="/productList">
+          <v-btn color="success" outlined text to="/productList">
             <v-icon left>mdi-format-list-checkbox</v-icon> Lista de productos
           </v-btn>
         </div>
 
         <div class="mr-4">
-          <v-btn color="success" to="/addProductForm">
+          <v-btn color="success" outlined text to="/addProductForm">
             <v-icon left>mdi-currency-eur</v-icon> Vender
           </v-btn>
         </div>
         <div v-if="isAuthenticated">
-          <v-btn class="mr-2" color="primary" to="/profile"
+          <v-btn class="mr-2" color="primary" outlined text to="/profile"
             ><v-icon left>mdi-account</v-icon>
             {{ loggedInUser.username }}</v-btn
           >
-          <v-btn color="dark" dark @click="logout">
+          <v-btn color="dark" outlined text @click="logout">
             <v-icon left>mdi-logout</v-icon>Desconectar</v-btn
           >
         </div>
         <div v-else>
-          <v-btn color="info" to="/login">
+          <v-btn color="info" outlined text to="/login">
             <v-icon left>mdi-login</v-icon>Iniciar sesión</v-btn
           >
           <!--<v-btn color="success" to="/signup">Regístrate</v-btn>-->

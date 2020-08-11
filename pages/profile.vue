@@ -20,13 +20,15 @@
           </v-card-subtitle>
           <v-card-subtitle class="mb-2">
             <strong>Fecha de registro:</strong>
-            {{ new Date(loggedInUser.signUpDate) }}
+            {{ new Date(loggedInUser.signUpDate).toString().substr(0, 15) }}
           </v-card-subtitle>
           <v-card-actions>
-            <SelectImage v-model="image" @imageURL="setImageURL" />
-            <v-btn small class="mb-6" color="success" @click="addPhoto"
-              >Actualizar foto</v-btn
-            >
+            <v-col>
+              <SelectImage v-model="image" @imageURL="setImageURL" />
+              <v-btn small class="mb-6" color="success" @click="addPhoto"
+                ><v-icon left>mdi-cloud-upload</v-icon>Actualizar foto</v-btn
+              >
+            </v-col>
           </v-card-actions>
         </v-card>
 
@@ -35,20 +37,27 @@
             ><strong>Productos creados</strong></v-card-title
           >
           <v-divider></v-divider>
-          <v-card-subtitle v-for="(profile, idx) in profiles" :key="idx">
-            <p>
-              <strong>{{ profile.name }}</strong>
-            </p>
-            <p>{{ new Date(profile.createdDate) }}</p>
-            <v-btn
-              class="mb-2"
-              color="teal"
-              dark
-              @click="showProduct(profile._id)"
-              ><v-icon left>mdi-eye</v-icon> Ver producto</v-btn
-            >
-            <v-divider></v-divider>
-          </v-card-subtitle>
+
+          <v-list>
+            <v-list-item-group>
+              <v-list-item v-for="(profile, idx) in profiles" :key="idx">
+                <v-list-item-title>
+                  <strong>{{ profile.name }}</strong>
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ new Date(profile.createdDate).toString().substr(0, 15) }}
+                </v-list-item-subtitle>
+
+                <v-btn
+                  class="mb-2"
+                  color="success"
+                  small
+                  @click="showProduct(profile._id)"
+                  ><v-icon left>mdi-eye</v-icon> Ver producto</v-btn
+                >
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
         </v-card>
       </v-col>
     </v-row>
@@ -89,6 +98,7 @@ export default {
       }
       const response = await this.$axios.$put('/users/me/', photoData)
       // console.log(response)
+      window.location.reload()
       return response
     },
     setImageURL(imageURL) {

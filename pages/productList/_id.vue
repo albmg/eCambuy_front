@@ -95,10 +95,10 @@
               loggedInUser._id === (message.toUserId && message.toUserId._id)
             "
           >
+            <v-btn small color="error" @click="dialog = !dialog"
+              ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
+            >
             <v-card>
-              <v-btn small color="error" @click="dialog = !dialog"
-                ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
-              >
               <v-list-item class="header-card">
                 <v-list-item-avatar height="50" color="grey"
                   ><v-img :src="message.userId.photo"> </v-img
@@ -267,6 +267,6 @@ export default {
   font-size: 1em;
 }
 .header-card {
-  background-color: #52a297;
+  background-color: #62d2a2;
 }
 </style>

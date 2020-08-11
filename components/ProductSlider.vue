@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="10" max-width="1000" class="mx-auto">
+  <v-card elevation="10" max-width="800" class="mx-auto">
     <!--<v-system-bar lights-out></v-system-bar>-->
     <v-carousel
       :continuous="true"
