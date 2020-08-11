@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-col cols="12" sm="10" md="10" lg="6" class="mx-auto">
+      <!-- Product Card -->
       <v-card>
         <v-list-item>
           <v-list-item-avatar height="50" color="grey"
@@ -54,21 +55,24 @@
           </v-col>
         </v-card-actions>
       </v-card>
-      <div v-if="isAuthenticated">
-        <v-btn class="mt-2" color="info" block @click="dialog = !dialog">
-          <v-icon left>mdi-chat-outline</v-icon> Chat
-        </v-btn>
-      </div>
-      <v-dialog v-model="dialogMessage" max-width="680px">
+      <!-- Start Chat -->
+      <!--<div v-if="isAuthenticated">-->
+      <v-btn class="mt-2" color="info" block @click="dialog = !dialog">
+        <v-icon left>mdi-chat-outline</v-icon> Chat
+      </v-btn>
+      <!--</div>-->
+      <v-dialog v-model="dialogMessage" max-width="680px" hide-overlay>
         <v-card class="text-center">
+          <v-card-subtitle
+            >Añade un mensaje para ponerte en contacto con el
+            vendedor</v-card-subtitle
+          >
           <v-text-field
             v-model="text"
             class="text-center"
             label="Añadir mensaje"
             outlined
-            shaped
-            >Añade un mensaje para empezar un chat con el owner</v-text-field
-          >
+          ></v-text-field>
           <v-col cols="12" md="6" class="mx-auto">
             <v-btn color="success" @click="startChat(owner._id)"
               ><v-icon left>mdi-send</v-icon>enviar</v-btn
@@ -80,21 +84,9 @@
         </v-card>
       </v-dialog>
     </v-col>
+    <!-- Chat Messages -->
     <v-col cols="12" md="6">
-      <v-dialog v-model="dialog" class="chat" max-width="680px">
-        <v-row cols="12" class="mx-auto">
-          <div v-if="messages.length === 0">
-            <v-btn color="info" @click="dialogMessage = !dialogMessage"
-              ><v-icon left>mdi-message-plus-outline</v-icon>Añadir nuevo
-              mensaje</v-btn
-            >
-          </div>
-          <v-spacer></v-spacer>
-          <v-btn color="error" @click="dialog = !dialog"
-            ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
-          >
-        </v-row>
-
+      <v-dialog v-model="dialog" class="chat" max-width="520px">
         <div v-for="(message, idx) in messages" :key="idx" class="mb-2">
           <div
             v-if="
@@ -104,7 +96,10 @@
             "
           >
             <v-card>
-              <v-list-item style="background-color: #dfe4e3;">
+              <v-btn small color="error" @click="dialog = !dialog"
+                ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
+              >
+              <v-list-item class="header-card">
                 <v-list-item-avatar height="50" color="grey"
                   ><v-img :src="message.userId.photo"> </v-img
                 ></v-list-item-avatar>
@@ -113,19 +108,21 @@
                     message.userId.username
                   }}</v-list-item-title>
                   <v-list-item-subtitle>{{
-                    new Date(message.date).toString().substr(0, 15)
+                    new Date(message.date).toString().substr(0, 25)
                   }}</v-list-item-subtitle>
-                  <v-list-item-title class="headline"
+                  <!--<v-list-item-title class="headline"
                     >para ->
                     {{
                       message.toUserId && message.toUserId.username
                     }}</v-list-item-title
-                  >
+                  >-->
                 </v-list-item-content>
               </v-list-item>
               <v-divider></v-divider>
 
-              <v-card-title>{{ message.text }}</v-card-title>
+              <v-card-title class="message-text">{{
+                message.text
+              }}</v-card-title>
 
               <div v-if="message.userId._id === loggedInUser._id">
                 <v-card-actions>
@@ -140,7 +137,7 @@
               </div>
               <v-divider></v-divider>
               <div v-if="message.userId._id !== loggedInUser._id">
-                <v-card-text style="background-color: aqua;"
+                <v-card-text color="success"
                   ><v-text-field
                     v-model="text"
                     label="Responder mensaje"
@@ -152,13 +149,32 @@
                     class="mx-auto"
                     color="info"
                     @click="createMessage(message.userId._id)"
-                    ><v-icon left>mdi-delete</v-icon> Responder mensaje</v-btn
+                    ><v-icon left>mdi-send</v-icon> Responder mensaje</v-btn
                   >
                 </v-card-actions>
               </div>
             </v-card>
           </div>
         </div>
+        <v-col class="mx-auto">
+          <v-card>
+            <v-card-subtitle class="text-center">
+              Crea un nuevo chat y ponte en contacto con el vendedor, añadiendo
+              un nuevo mensaje.
+            </v-card-subtitle>
+            <v-card-actions>
+              <v-btn small color="info" @click="dialogMessage = !dialogMessage"
+                ><v-icon left>mdi-message-plus-outline</v-icon>Añadir nuevo
+                mensaje</v-btn
+              >
+
+              <v-spacer></v-spacer>
+              <v-btn small color="error" @click="dialog = !dialog"
+                ><v-icon left>mdi-close</v-icon>Cerrar</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-col>
       </v-dialog>
     </v-col>
   </v-container>
@@ -168,6 +184,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  middleware: 'auth',
   async asyncData({ $axios, params }) {
     const response = await $axios.$get(`/products/${params.id}`)
     return { ...response }
@@ -214,6 +231,7 @@ export default {
         `/products/me/${this.id}/messages`,
         data
       )
+      window.location.reload()
       return response
     },
     async createMessage(userId) {
@@ -225,6 +243,8 @@ export default {
         `/products/me/${this.id}/messages`,
         data
       )
+      window.location.reload()
+      // window.scrollTo(0, document.body.scrollHeight)
       return response
     },
     async deleteMessage(id) {
@@ -232,6 +252,7 @@ export default {
       if (response) {
         await this.$axios.$delete(`/products/me/${this.id}/messages/${id}`)
       }
+      window.location.reload()
     },
   },
 }
@@ -240,5 +261,12 @@ export default {
 <style scoped>
 .date {
   font-size: 0.8em;
+}
+.message-text {
+  font-style: italic;
+  font-size: 1em;
+}
+.header-card {
+  background-color: #52a297;
 }
 </style>
