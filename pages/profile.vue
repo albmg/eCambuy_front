@@ -59,6 +59,31 @@
             </v-list-item-group>
           </v-list>
         </v-card>
+        <v-card>
+          <v-card-title class="mt-2"><strong>Favoritos</strong></v-card-title>
+          <v-divider></v-divider>
+
+          <v-list>
+            <v-list-item-group>
+              <v-list-item v-for="(favourite, idx) in favourites" :key="idx">
+                <v-list-item-title>
+                  <strong>{{ favourite.name }}</strong>
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ new Date(favourite.createdDate).toString().substr(0, 15) }}
+                </v-list-item-subtitle>
+
+                <v-btn
+                  class="mb-2"
+                  color="orange"
+                  small
+                  @click="showProduct(favourite._id)"
+                  ><v-icon left>mdi-eye</v-icon> Ver producto</v-btn
+                >
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -75,6 +100,7 @@ export default {
     return {
       profiles: '',
       image: '',
+      favourites: '',
     }
   },
   computed: {
@@ -82,11 +108,12 @@ export default {
   },
   async mounted() {
     this.profiles = await this.getProfile()
+    this.favourites = await this.getFavourites()
   },
   methods: {
     async getProfile() {
       const response = await this.$axios.$get('/users/me/')
-      // console.log(response.productsCreated)
+      console.log(response)
       return response.productsCreated
     },
     showProduct(id) {
@@ -103,6 +130,10 @@ export default {
     },
     setImageURL(imageURL) {
       this.image = imageURL
+    },
+    async getFavourites() {
+      const response = await this.$axios.$get('/users/me')
+      return response.favouriteProducts
     },
   },
 }
