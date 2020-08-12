@@ -18,8 +18,20 @@
             </v-list-item-content>
             <v-list-item-action>
               <v-btn text @click="addFavProduct(id)">
-                <v-icon>mdi-fruit-grapes-outline</v-icon></v-btn
-              >
+                <div v-if="loggedInUser.favouriteProducts.includes(id)">
+                  <v-icon class="mdi-36px" color="purple"
+                    >mdi-fruit-grapes-outline</v-icon
+                  >
+                </div>
+                <div v-else><v-icon>mdi-fruit-grapes-outline</v-icon></div>
+              </v-btn>
+              <!--<v-icon
+                  :color="myIcon.color"
+                  class="mdi-24px"
+                  @click="changeColorFavourite()"
+                  >mdi-fruit-grapes-outline
+                </v-icon></v-btn
+              >-->
             </v-list-item-action>
           </v-list-item>
         </v-col>
@@ -163,6 +175,7 @@
             </v-card>
           </div>
         </div>
+
         <v-col class="mx-auto">
           <v-card>
             <v-card-subtitle class="text-center">
@@ -194,7 +207,7 @@ export default {
   middleware: 'auth',
   async asyncData({ $axios, params }) {
     const response = await $axios.$get(`/products/${params.id}`)
-    console.log(response)
+    // console.log(response)
     return response
   },
   data() {
@@ -205,6 +218,13 @@ export default {
       messages: [],
       text: '',
       sheet: false,
+      favourites: '',
+      myIcon: {
+        color: '',
+      },
+      colors: {
+        purple: 'purple',
+      },
     }
   },
   computed: {
@@ -227,7 +247,7 @@ export default {
     },
     async showMessages() {
       const response = await this.$axios.$get(`/products/${this.id}/messages`)
-      console.log(response)
+      // console.log(response)
       return response
     },
     async startChat(ownerId) {
@@ -267,6 +287,7 @@ export default {
         productId: id,
       }
       const response = await this.$axios.$post('/users/me/products', data)
+      window.location.reload()
       return response
     },
   },
