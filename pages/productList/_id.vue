@@ -3,19 +3,26 @@
     <v-col cols="12" sm="10" md="10" lg="6" class="mx-auto">
       <!-- Product Card -->
       <v-card>
-        <v-list-item>
-          <v-list-item-avatar height="50" color="grey"
-            ><v-img :src="owner.photo"> </v-img
-          ></v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title class="headline">{{
-              owner && owner.username
-            }}</v-list-item-title>
-            <v-list-item-subtitle>{{
-              new Date(createdDate).toString().substr(0, 15)
-            }}</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+        <v-col>
+          <v-list-item>
+            <v-list-item-avatar height="50" color="grey"
+              ><v-img :src="owner.photo"> </v-img
+            ></v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title class="headline">{{
+                owner && owner.username
+              }}</v-list-item-title>
+              <v-list-item-subtitle>{{
+                new Date(createdDate).toString().substr(0, 15)
+              }}</v-list-item-subtitle>
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-btn text @click="addFavProduct(id)"
+                ><v-icon>mdi-fruit-grapes-outline</v-icon></v-btn
+              >
+            </v-list-item-action>
+          </v-list-item>
+        </v-col>
 
         <v-img class="white--text align-end" height="200px" :src="image">
         </v-img>
@@ -187,7 +194,8 @@ export default {
   middleware: 'auth',
   async asyncData({ $axios, params }) {
     const response = await $axios.$get(`/products/${params.id}`)
-    return { ...response }
+    console.log(response)
+    return response
   },
   data() {
     return {
@@ -253,6 +261,13 @@ export default {
         await this.$axios.$delete(`/products/me/${this.id}/messages/${id}`)
       }
       window.location.reload()
+    },
+    async addFavProduct(id) {
+      const data = {
+        product: id,
+      }
+      const response = await this.$axios.$post('/users/me/products', data)
+      return response
     },
   },
 }
