@@ -17,8 +17,8 @@
               }}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn text @click="addFavProduct(id)"
-                ><v-icon>mdi-fruit-grapes-outline</v-icon></v-btn
+              <v-btn text @click="addFavProduct(id)">
+                <v-icon>mdi-fruit-grapes-outline</v-icon></v-btn
               >
             </v-list-item-action>
           </v-list-item>
@@ -264,7 +264,7 @@ export default {
     },
     async addFavProduct(id) {
       const data = {
-        product: id,
+        productId: id,
       }
       const response = await this.$axios.$post('/users/me/products', data)
       return response
