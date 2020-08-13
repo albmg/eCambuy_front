@@ -39,13 +39,11 @@
         </div>
         <div v-else>
           <div class="text-center mb-3">
-            <v-btn color="success" to="/login">
+            <v-btn color="#5c8d89" dark to="/login">
               <v-icon left>mdi-login</v-icon>Iniciar sesión</v-btn
             >
           </div>
-          <div class="text-center">
-            <!--<v-btn color="success" to="/signup">Regístrate</v-btn>-->
-          </div>
+          <div class="text-center"></div>
         </div>
       </v-container>
     </v-navigation-drawer>
@@ -59,9 +57,6 @@
       <v-col cols="8" md="4">
         <nuxt-link to="/"><img class="mt-2" src="/logoNuevo.png" /></nuxt-link>
       </v-col>
-      <!--<v-btn to="/" :text="true">-->
-      <!--<v-toolbar-title v-text="title" />-->
-      <!--</v-btn>-->
 
       <v-spacer />
       <v-toolbar-items class="hidden-xs-only mt-6">
@@ -86,10 +81,9 @@
           >
         </div>
         <div v-else>
-          <v-btn color="info" outlined text to="/login">
+          <v-btn color="#5c8d89" dark to="/login">
             <v-icon left>mdi-login</v-icon>Iniciar sesión</v-btn
           >
-          <!--<v-btn color="success" to="/signup">Regístrate</v-btn>-->
         </div>
       </v-toolbar-items>
     </v-app-bar>

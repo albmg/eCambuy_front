@@ -18,7 +18,7 @@
             </v-list-item-content>
             <v-list-item-action>
               <v-btn text @click="addFavProduct(id)">
-                <div v-if="loggedInUser.favouriteProducts.includes(id)">
+                <div v-if="isFavourite">
                   <v-icon class="mdi-36px" color="#5c8d89"
                     >mdi-fruit-grapes-outline</v-icon
                   >
@@ -224,6 +224,7 @@ export default {
       text: '',
       sheet: false,
       favourites: '',
+      isFavourite: false,
       myIcon: {
         color: '',
       },
@@ -237,6 +238,7 @@ export default {
   },
   async created() {
     this.messages = await this.showMessages()
+    this.isFavourite = this.loggedInUser.favouriteProducts.includes(this.id)
   },
 
   methods: {
@@ -264,7 +266,7 @@ export default {
         `/products/me/${this.id}/messages`,
         data
       )
-      window.location.reload()
+      // window.location.reload()
       return response
     },
     async createMessage(userId) {
@@ -276,7 +278,7 @@ export default {
         `/products/me/${this.id}/messages`,
         data
       )
-      window.location.reload()
+      // window.location.reload()
       // window.scrollTo(0, document.body.scrollHeight)
       return response
     },
@@ -285,15 +287,15 @@ export default {
       if (response) {
         await this.$axios.$delete(`/products/me/${this.id}/messages/${id}`)
       }
-      window.location.reload()
+      // window.location.reload()
     },
-    async addFavProduct(id) {
+    addFavProduct(id) {
       const data = {
         productId: id,
       }
-      const response = await this.$axios.$post('/users/me/products', data)
-      window.location.reload()
-      return response
+      this.$axios.$post('/users/me/products', data).then(() => {
+        this.isFavourite = !this.isFavourite
+      })
     },
   },
 }
