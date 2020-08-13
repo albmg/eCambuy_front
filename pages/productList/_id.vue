@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    {{ id }}
     <v-col cols="12" sm="10" md="10" lg="6" class="mx-auto">
       <!-- Product Card -->
       <v-card>
