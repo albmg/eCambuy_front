@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-btn small class="primary" @click="onPickFile"
+      <v-btn small color="#a7d7c5" @click="onPickFile"
         ><v-icon left>mdi-camera-plus-outline</v-icon>Seleccionar imagen</v-btn
       >
       <input

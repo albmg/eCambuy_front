@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" md="4" class="mx-auto">
         <v-form v-model="valid">
-          <h2>Únete a eCambuy</h2>
+          <h2 class="main-title">Únete a eCambuy</h2>
           <h4>Crea una cuenta para intercambiar tus productos ecológicos</h4>
           <v-text-field
             v-model="username"
@@ -36,7 +36,14 @@
           ></v-text-field>
 
           <div class="text-center">
-            <v-btn type="submit" block color="primary" nuxt @click="signup">
+            <v-btn
+              type="submit"
+              block
+              color="#5c8d89"
+              dark
+              nuxt
+              @click="signup"
+            >
               Enviar
             </v-btn>
           </div>
@@ -48,7 +55,7 @@
         <v-divider />
         <p class="mt-4 text-center">
           Ya tienes una cuenta?
-          <v-btn color="primary" text nuxt to="/login">
+          <v-btn color="#5c8d89" text nuxt to="/login">
             Inicia sesión
           </v-btn>
         </p>
@@ -106,3 +113,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.main-title {
+  color: #5c8d89;
+}
+</style>

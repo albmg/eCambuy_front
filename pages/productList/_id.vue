@@ -9,7 +9,7 @@
               ><v-img :src="owner.photo"> </v-img
             ></v-list-item-avatar>
             <v-list-item-content>
-              <v-list-item-title class="headline">{{
+              <v-list-item-title class="onwer-headline headline">{{
                 owner && owner.username
               }}</v-list-item-title>
               <v-list-item-subtitle>{{
@@ -19,7 +19,7 @@
             <v-list-item-action>
               <v-btn text @click="addFavProduct(id)">
                 <div v-if="loggedInUser.favouriteProducts.includes(id)">
-                  <v-icon class="mdi-36px" color="purple"
+                  <v-icon class="mdi-36px" color="#5c8d89"
                     >mdi-fruit-grapes-outline</v-icon
                   >
                 </div>
@@ -40,19 +40,20 @@
         </v-img>
 
         <v-card-title class="pb-0"
-          ><v-icon left>mdi-fruit-watermelon</v-icon>{{ name }}
+          ><v-icon color="#5c8d89" left>mdi-fruit-watermelon</v-icon>{{ name }}
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text color="blue" class="text--primary">
-          <v-icon left>mdi-card-text-outline</v-icon> {{ description }}
+          <v-icon color="#5c8d89" left>mdi-card-text-outline</v-icon>
+          {{ description }}
         </v-card-text>
         <v-divider></v-divider>
         <v-card-subtitle class="pb-0"
-          ><v-icon left>mdi-currency-eur</v-icon> Precio:
+          ><v-icon color="#5c8d89" left>mdi-currency-eur</v-icon> Precio:
           {{ price }} Kg</v-card-subtitle
         >
         <v-card-subtitle class="pb-0 mb-2"
-          ><v-icon left>mdi-google-maps</v-icon> Municipio:
+          ><v-icon color="#5c8d89" left>mdi-google-maps</v-icon> Municipio:
           {{ location }}</v-card-subtitle
         >
 
@@ -63,12 +64,12 @@
             md="12"
           >
             <v-divider></v-divider>
-            <v-btn class="mb-2" block color="orange" @click="editProduct"
+            <v-btn class="mb-2" block color="warning" text @click="editProduct"
               ><v-icon left>mdi-clipboard-edit-outline</v-icon>Editar
               Producto</v-btn
             >
 
-            <v-btn block color="error" @click="deleteProduct"
+            <v-btn block color="error" text @click="deleteProduct"
               ><v-icon left>mdi-delete</v-icon>Borrar Producto</v-btn
             >
           </v-col>
@@ -76,7 +77,7 @@
       </v-card>
       <!-- Start Chat -->
       <!--<div v-if="isAuthenticated">-->
-      <v-btn class="mt-2" color="info" block @click="dialog = !dialog">
+      <v-btn class="mt-2" color="#a7d7c5" block @click="dialog = !dialog">
         <v-icon left>mdi-chat-outline</v-icon> Chat
       </v-btn>
       <!--</div>-->
@@ -93,10 +94,10 @@
             outlined
           ></v-text-field>
           <v-col cols="12" md="6" class="mx-auto">
-            <v-btn color="success" @click="startChat(owner._id)"
+            <v-btn color="#74b49b" text @click="startChat(owner._id)"
               ><v-icon left>mdi-send</v-icon>enviar</v-btn
             >
-            <v-btn color="error" @click="dialogMessage = !dialogMessage"
+            <v-btn color="error" text @click="dialogMessage = !dialogMessage"
               ><v-icon left>mdi-close</v-icon>cerrar</v-btn
             >
           </v-col>
@@ -114,7 +115,7 @@
               loggedInUser._id === (message.toUserId && message.toUserId._id)
             "
           >
-            <v-btn small color="error" @click="dialog = !dialog"
+            <v-btn small color="error" text @click="dialog = !dialog"
               ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
             >
             <v-card>
@@ -156,7 +157,7 @@
               </div>
               <v-divider></v-divider>
               <div v-if="message.userId._id !== loggedInUser._id">
-                <v-card-text color="success"
+                <v-card-text color="#a7d7c5"
                   ><v-text-field
                     v-model="text"
                     label="Responder mensaje"
@@ -166,7 +167,7 @@
                   <v-btn
                     small
                     class="mx-auto"
-                    color="info"
+                    color="#a7d7c5"
                     @click="createMessage(message.userId._id)"
                     ><v-icon left>mdi-send</v-icon> Responder mensaje</v-btn
                   >
@@ -183,13 +184,17 @@
               un nuevo mensaje.
             </v-card-subtitle>
             <v-card-actions>
-              <v-btn small color="info" @click="dialogMessage = !dialogMessage"
+              <v-btn
+                small
+                color="#74b49b"
+                text
+                @click="dialogMessage = !dialogMessage"
                 ><v-icon left>mdi-message-plus-outline</v-icon>Añadir nuevo
                 mensaje</v-btn
               >
 
               <v-spacer></v-spacer>
-              <v-btn small color="error" @click="dialog = !dialog"
+              <v-btn small color="error" text @click="dialog = !dialog"
                 ><v-icon left>mdi-close</v-icon>Cerrar</v-btn
               >
             </v-card-actions>
@@ -303,6 +308,9 @@ export default {
   font-size: 1em;
 }
 .header-card {
-  background-color: #62d2a2;
+  background-color: #a7d7c5;
+}
+.owner-headline {
+  color: '#5c8d89';
 }
 </style>

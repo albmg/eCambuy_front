@@ -15,7 +15,7 @@
           </v-flex>
         </v-layout>
       </v-container>
-      <v-list>
+      <v-list class="left-menu">
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -57,7 +57,7 @@
       ></v-app-bar-nav-icon>
 
       <v-col cols="8" md="4">
-        <nuxt-link to="/"><img class="mt-2" src="/logo.png" /></nuxt-link>
+        <nuxt-link to="/"><img class="mt-2" src="/logoNuevo.png" /></nuxt-link>
       </v-col>
       <!--<v-btn to="/" :text="true">-->
       <!--<v-toolbar-title v-text="title" />-->
@@ -66,22 +66,22 @@
       <v-spacer />
       <v-toolbar-items class="hidden-xs-only mt-6">
         <div class="mr-4">
-          <v-btn color="success" outlined text to="/productList">
+          <v-btn color="#5c8d89" outlined text to="/productList">
             <v-icon left>mdi-format-list-checkbox</v-icon> Lista de productos
           </v-btn>
         </div>
 
         <div class="mr-4">
-          <v-btn color="success" outlined text to="/addProductForm">
+          <v-btn color="#5c8d89" outlined text to="/addProductForm">
             <v-icon left>mdi-currency-eur</v-icon> Vender
           </v-btn>
         </div>
         <div v-if="isAuthenticated">
-          <v-btn class="mr-2" color="primary" outlined text to="/profile"
+          <v-btn class="mr-2" color="#5c8d89" outlined text to="/profile"
             ><v-icon left>mdi-account</v-icon>
             {{ loggedInUser.username }}</v-btn
           >
-          <v-btn color="dark" outlined text @click="logout">
+          <v-btn color="#5c8d89" outlined text @click="logout">
             <v-icon left>mdi-logout</v-icon>Desconectar</v-btn
           >
         </div>
@@ -100,7 +100,7 @@
       </v-container>
     </v-main>
 
-    <v-footer :absolute="!fixed" app>
+    <v-footer dark class="footer-page" :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -153,5 +153,11 @@ export default {
 <style scoped>
 .navbar {
   background-color: white !important;
+}
+.footer-page {
+  background-color: #5c8d89;
+}
+.left-menu {
+  color: #5c8d89;
 }
 </style>

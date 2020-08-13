@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" sm="8" md="6" class="mx-auto">
         <v-form v-model="valid">
-          <h2>Añadir producto</h2>
+          <h2 class="main-title">Añadir producto</h2>
           <v-text-field
             v-model="name"
             :rules="nameRules"
@@ -39,7 +39,7 @@
             required
           ></v-text-field>
 
-          <v-btn block color="primary" nuxt @click="createProduct">
+          <v-btn block color="#5c8d89" dark nuxt @click="createProduct">
             Enviar
           </v-btn>
         </v-form>
@@ -100,3 +100,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.main-title {
+  color: #5c8d89;
+}
+</style>

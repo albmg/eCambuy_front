@@ -1,9 +1,11 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" md="5" class="mx-auto">
+      <v-col cols="12" sm="8" md="6" class="mx-auto">
         <v-card>
-          <v-card-title>Perfil de usuario</v-card-title>
+          <v-card-title class="perfil"
+            ><strong>Perfil de usuario</strong></v-card-title
+          >
           <v-divider></v-divider>
           <div>
             <v-avatar class="mt-2" size="100"
@@ -25,7 +27,7 @@
           <v-card-actions>
             <v-col>
               <SelectImage v-model="image" @imageURL="setImageURL" />
-              <v-btn small class="mb-6" color="success" @click="addPhoto"
+              <v-btn small class="mb-6" color="#a7d7c5" @click="addPhoto"
                 ><v-icon left>mdi-cloud-upload</v-icon>Actualizar foto</v-btn
               >
             </v-col>
@@ -33,56 +35,58 @@
         </v-card>
 
         <v-card>
-          <v-card-title class="mt-2"
+          <v-card-title class="product-created mt-2"
             ><strong>Productos creados</strong></v-card-title
           >
           <v-divider></v-divider>
 
-          <v-list>
-            <v-list-item-group>
-              <v-list-item v-for="(profile, idx) in profiles" :key="idx">
-                <v-list-item-title>
-                  <strong>{{ profile.name }}</strong>
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ new Date(profile.createdDate).toString().substr(0, 15) }}
-                </v-list-item-subtitle>
+          <v-expansion-panels :hover="hover">
+            <v-expansion-panel v-for="(profile, idx) in profiles" :key="idx">
+              <v-expansion-panel-header
+                ><strong>{{ profile.name }}</strong></v-expansion-panel-header
+              >
+              <v-expansion-panel-content class="text-center">
+                {{ new Date(profile.createdDate).toString().substr(0, 15) }}
 
                 <v-btn
-                  class="mb-2"
-                  color="success"
+                  class="mb-2 ml-10"
+                  color="#5c8d89"
                   small
+                  dark
                   @click="showProduct(profile._id)"
                   ><v-icon left>mdi-eye</v-icon> Ver producto</v-btn
                 >
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-card>
         <v-card>
-          <v-card-title class="mt-2"><strong>Favoritos</strong></v-card-title>
+          <v-card-title class="fav-products mt-2"
+            ><strong>Favoritos</strong></v-card-title
+          >
           <v-divider></v-divider>
 
-          <v-list>
-            <v-list-item-group>
-              <v-list-item v-for="(favourite, idx) in favourites" :key="idx">
-                <v-list-item-title>
-                  <strong>{{ favourite.name }}</strong>
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ new Date(favourite.createdDate).toString().substr(0, 15) }}
-                </v-list-item-subtitle>
-
+          <v-expansion-panels>
+            <v-expansion-panel
+              v-for="(favourite, idx) in favourites"
+              :key="idx"
+            >
+              <v-expansion-panel-header>
+                <strong>{{ favourite.name }}</strong></v-expansion-panel-header
+              >
+              <v-expansion-panel-content class="text-center">
+                {{ new Date(favourite.createdDate).toString().substr(0, 15) }}
                 <v-btn
-                  class="mb-2"
-                  color="orange"
+                  class="mb-2 ml-10"
+                  color="#5c8d89"
+                  dark
                   small
                   @click="showProduct(favourite._id)"
                   ><v-icon left>mdi-eye</v-icon> Ver producto</v-btn
                 >
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-card>
       </v-col>
     </v-row>
@@ -101,6 +105,7 @@ export default {
       profiles: '',
       image: '',
       favourites: '',
+      hover: true,
     }
   },
   computed: {
@@ -138,3 +143,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.product-created,
+.fav-products,
+.perfil {
+  background-color: #5c8d89;
+  color: #eee;
+}
+</style>

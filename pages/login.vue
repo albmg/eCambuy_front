@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" md="4" class="mx-auto">
         <v-form v-model="valid">
-          <h2>Bienvenido</h2>
+          <h2 class="main-title">Bienvenido</h2>
           <h4>Inicia sesión para comprar y vender productos</h4>
           <v-text-field
             v-model="email"
@@ -23,7 +23,7 @@
           ></v-text-field>
 
           <div class="text-center">
-            <v-btn block color="primary" nuxt @click="login">
+            <v-btn block color="#5c8d89" dark nuxt @click="login">
               Enviar
             </v-btn>
           </div>
@@ -35,7 +35,7 @@
         <v-divider></v-divider>
         <p class="mt-4 text-center">
           No tienes cuenta? Crea una
-          <v-btn color="primary" text nuxt to="/signup">
+          <v-btn color="#5c8d89" text nuxt to="/signup">
             Regístrate
           </v-btn>
         </p>
@@ -74,3 +74,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.main-title {
+  color: #5c8d89;
+}
+</style>

@@ -17,7 +17,7 @@
       </v-row>
     </v-container>
 
-    <h2 class="text-center">Productos en venta</h2>
+    <h2 class="main-title text-center">Productos en venta</h2>
     <v-container>
       <v-row>
         <ProductCard
@@ -63,9 +63,14 @@ export default {
   methods: {
     async getListProducts() {
       const response = await this.$axios.$get('/products')
-      // console.log(response)
       return response
     },
   },
 }
 </script>
+
+<style scoped>
+.main-title {
+  color: #5c8d89;
+}
+</style>

@@ -1,6 +1,5 @@
 <template>
   <v-card elevation="10" max-width="800" class="mx-auto">
-    <!--<v-system-bar lights-out></v-system-bar>-->
     <v-carousel
       :continuous="true"
       :cycle="cycle"
@@ -15,22 +14,6 @@
         <div class="title">
           {{ lastProduct.name }}
         </div>
-        <!--<div class="subheading">{{ lastProduct.name }}</div>
-        <template v-slot:placeholder>
-          <v-row class="fill-height ma-0" align="center" justify="center">
-            <v-progress-circular
-              indeterminate
-              color="grey lighten-5"
-            ></v-progress-circular>
-          </v-row>
-        </template>
-        <v-sheet height="100%" tile>
-          <v-row class="fill-height" align="center" justify="center">
-            <div class="display-3">
-              <v-img height="200px" :src="lastProduct.image" />
-            </div>
-          </v-row>
-        </v-sheet>-->
       </v-carousel-item>
     </v-carousel>
   </v-card>
