@@ -262,25 +262,21 @@ export default {
         text: this.text,
         toUserId: ownerId,
       }
-      const response = await this.$axios.$post(
-        `/products/me/${this.id}/messages`,
-        data
-      )
+      // const response =
+      await this.$axios.$post(`/products/me/${this.id}/messages`, data)
       // window.location.reload()
-      return response
+      // return response
     },
     async createMessage(userId) {
       const data = {
         text: this.text,
         toUserId: userId,
       }
-      const response = await this.$axios.$post(
-        `/products/me/${this.id}/messages`,
-        data
-      )
+      // const response =
+      await this.$axios.$post(`/products/me/${this.id}/messages`, data)
       // window.location.reload()
       // window.scrollTo(0, document.body.scrollHeight)
-      return response
+      // return response
     },
     async deleteMessage(id) {
       const response = confirm('Estás seguro de borrar el mensaje?')

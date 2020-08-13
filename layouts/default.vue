@@ -33,7 +33,7 @@
       </v-list>
       <v-container>
         <div v-if="isAuthenticated" class="text-center">
-          <v-btn color="dark" text @click="logout">
+          <v-btn color="#5c8d89" outlined text @click="logout">
             <v-icon left>mdi-logout</v-icon>Desconectar</v-btn
           >
         </div>

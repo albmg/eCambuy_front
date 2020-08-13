@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="12">
-          <v-sheet elevation="1" class="pa-12">
+          <v-sheet elevation="1" class="pa-6">
             <v-text-field
               v-model="search"
               :placeholder="placeholder"
