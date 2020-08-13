@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    {{ id }}
     <v-col cols="12" sm="10" md="10" lg="6" class="mx-auto">
       <!-- Product Card -->
       <v-card>
@@ -211,6 +212,7 @@ import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
   async asyncData({ $axios, params }) {
+    console.log('-', params.id)
     const response = await $axios.$get(`/products/${params.id}`)
     // console.log(response)
     return response
