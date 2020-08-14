@@ -55,22 +55,39 @@
             v-if="isAuthenticated && loggedInUser._id === owner._id"
             cols="12"
             md="12"
-          >
-            <v-divider></v-divider>
-            <v-btn class="mb-2" block color="warning" text @click="editProduct"
-              ><v-icon left>mdi-clipboard-edit-outline</v-icon>Editar
-              Producto</v-btn
-            >
+            ><v-divider></v-divider>
+            <v-expansion-panels>
+              <v-expansion-panel>
+                <v-expansion-panel-header>
+                  <strong>Opciones</strong></v-expansion-panel-header
+                >
+                <v-divider></v-divider>
 
-            <v-btn block color="error" text @click="deleteProduct"
-              ><v-icon left>mdi-delete</v-icon>Borrar Producto</v-btn
-            >
+                <v-expansion-panel-content class="text-center">
+                  <v-btn
+                    class="mb-2"
+                    block
+                    color="warning"
+                    text
+                    @click="editProduct"
+                    ><v-icon left>mdi-clipboard-edit-outline</v-icon>Editar
+                    Producto</v-btn
+                  >
+                  <v-divider></v-divider>
+
+                  <v-btn block color="error" text @click="deleteProduct"
+                    ><v-icon left>mdi-delete</v-icon>Borrar Producto</v-btn
+                  >
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+            <v-divider></v-divider>
           </v-col>
         </v-card-actions>
       </v-card>
       <!-- Start Chat -->
 
-      <v-btn class="mt-2" color="#a7d7c5" block @click="dialog = !dialog">
+      <v-btn class="mt-2" color="#ffa83a" block @click="dialog = !dialog">
         <v-icon left>mdi-chat-outline</v-icon> Chat
       </v-btn>
 
@@ -83,6 +100,7 @@
           <v-text-field
             v-model="text"
             class="text-center"
+            color="#a7d7c5"
             label="Añadir mensaje"
             outlined
           ></v-text-field>

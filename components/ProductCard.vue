@@ -25,7 +25,7 @@
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="#5c8d89" dark block :to="`/productList/${products._id}`">
+        <v-btn color="#ffa83a" dark block :to="`/productList/${products._id}`">
           <v-icon left>mdi-eye</v-icon>
           Ver producto
         </v-btn>

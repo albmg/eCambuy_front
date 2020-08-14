@@ -10,11 +10,9 @@
 
           <v-col cols="12" md="6" class="mx-auto">
             <div class="text-center mt-12 mb-8">
-              <span class="call orange--text mb-4"
-                >Para comprar o vender productos</span
-              >
+              <span class="call mb-4">Para comprar o vender productos</span>
 
-              <v-btn small color="#5c8d89" text nuxt to="/signup"
+              <v-btn small color="#ffa83a" text nuxt to="/signup"
                 ><v-icon left>mdi-login-variant</v-icon>
                 Crea una cuenta
               </v-btn>
@@ -58,12 +56,13 @@ export default {
 
   /* color: #74b49b; */
 }
-.call,
+.call {
+  color: #5c8d89;
+  font-family: 'Cabin', sans-serif;
+}
 .secon {
   font-family: 'Cabin', sans-serif;
   color: #74b49b;
-}
-.secon {
   font-size: 32px;
 }
 </style>
