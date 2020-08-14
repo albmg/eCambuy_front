@@ -148,7 +148,7 @@ export default {
 .product-created,
 .fav-products,
 .perfil {
-  background-color: #5c8d89;
-  color: #eee;
+  color: #74b49b;
+  background-color: #e4e3e3;
 }
 </style>

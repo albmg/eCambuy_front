@@ -28,7 +28,7 @@
         <ProductSlider />
 
         <div class="text-center mt-12">
-          <v-btn color="#5c8d89" dark nuxt to="productList">
+          <v-btn color="#ffa83a" dark nuxt to="productList">
             <v-icon left>mdi-eye</v-icon>
             Ver todos los productos
           </v-btn>
@@ -55,7 +55,8 @@ export default {
 .second {
   font-family: 'Cabin', sans-serif;
   font-size: 28px;
-  color: #74b49b;
+
+  /* color: #74b49b; */
 }
 .call,
 .secon {

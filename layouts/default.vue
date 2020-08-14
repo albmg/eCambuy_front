@@ -10,7 +10,9 @@
           </v-flex>
           <v-flex>
             <p class="accent--text mt-3 headline">
-              <nuxt-link to="/profile">{{ loggedInUser.username }}</nuxt-link>
+              <nuxt-link class="profile-link" to="/profile">{{
+                loggedInUser.username
+              }}</nuxt-link>
             </p>
           </v-flex>
         </v-layout>
@@ -55,33 +57,35 @@
       ></v-app-bar-nav-icon>
 
       <v-col cols="8" md="4">
-        <nuxt-link to="/"><img class="mt-2" src="/logoNuevo.png" /></nuxt-link>
+        <nuxt-link to="/"
+          ><img class="mt-2" height="50" src="/logo.png"
+        /></nuxt-link>
       </v-col>
 
       <v-spacer />
       <v-toolbar-items class="hidden-xs-only mt-6">
         <div class="mr-4">
-          <v-btn color="#5c8d89" outlined text to="/productList">
-            <v-icon left>mdi-format-list-checkbox</v-icon> Lista de productos
+          <v-btn color="white" text to="/productList">
+            <v-icon left>mdi-format-list-checkbox</v-icon>Lista de productos
           </v-btn>
         </div>
 
         <div class="mr-4">
-          <v-btn color="#5c8d89" outlined text to="/addProductForm">
+          <v-btn color="white" text nuxt to="/addProductForm">
             <v-icon left>mdi-currency-eur</v-icon> Vender
           </v-btn>
         </div>
         <div v-if="isAuthenticated">
-          <v-btn class="mr-2" color="#5c8d89" outlined text to="/profile"
+          <v-btn class="mr-2" color="white" text to="/profile"
             ><v-icon left>mdi-account</v-icon>
             {{ loggedInUser.username }}</v-btn
           >
-          <v-btn color="#5c8d89" outlined text @click="logout">
+          <v-btn color="white" text @click="logout">
             <v-icon left>mdi-logout</v-icon>Desconectar</v-btn
           >
         </div>
         <div v-else>
-          <v-btn color="#5c8d89" dark to="/login">
+          <v-btn color="#ffa83a" dark to="/login">
             <v-icon left>mdi-login</v-icon>Iniciar sesión</v-btn
           >
         </div>
@@ -95,7 +99,20 @@
     </v-main>
 
     <v-footer dark class="footer-page" :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <v-col cols="12" class="text-center">
+        eCambuy
+        <span>&copy; {{ new Date().getFullYear() }}</span>
+        <v-icon>mdi-code-tags</v-icon> Alberto Merino Guerra
+        <v-icon>mdi-code-tags</v-icon>
+        <v-btn
+          class="mb-1"
+          icon
+          href="https://github.com/albmg"
+          target="_blank"
+        >
+          <v-icon>mdi-github</v-icon>
+        </v-btn>
+      </v-col>
     </v-footer>
   </v-app>
 </template>
@@ -113,11 +130,6 @@ export default {
           icon: 'mdi-home',
           title: 'Inicio',
           to: '/',
-        },
-        {
-          icon: 'mdi-magnify',
-          title: 'Buscar',
-          to: '/productList',
         },
         {
           icon: 'mdi-format-list-checkbox',
@@ -146,12 +158,15 @@ export default {
 
 <style scoped>
 .navbar {
-  background-color: white !important;
+  background-color: #74b49b !important;
 }
 .footer-page {
   background-color: #5c8d89;
 }
 .left-menu {
+  color: #5c8d89;
+}
+.profile-link {
   color: #5c8d89;
 }
 </style>

@@ -25,13 +25,6 @@
                 </div>
                 <div v-else><v-icon>mdi-fruit-grapes-outline</v-icon></div>
               </v-btn>
-              <!--<v-icon
-                  :color="myIcon.color"
-                  class="mdi-24px"
-                  @click="changeColorFavourite()"
-                  >mdi-fruit-grapes-outline
-                </v-icon></v-btn
-              >-->
             </v-list-item-action>
           </v-list-item>
         </v-col>
@@ -76,11 +69,11 @@
         </v-card-actions>
       </v-card>
       <!-- Start Chat -->
-      <!--<div v-if="isAuthenticated">-->
+
       <v-btn class="mt-2" color="#a7d7c5" block @click="dialog = !dialog">
         <v-icon left>mdi-chat-outline</v-icon> Chat
       </v-btn>
-      <!--</div>-->
+
       <v-dialog v-model="dialogMessage" max-width="680px" hide-overlay>
         <v-card class="text-center">
           <v-card-subtitle
@@ -106,7 +99,10 @@
     </v-col>
     <!-- Chat Messages -->
     <v-col cols="12" md="6">
-      <v-dialog v-model="dialog" class="chat" max-width="520px">
+      <v-dialog v-model="dialog" class="chat" max-width="680px">
+        <v-btn small color="error" @click="dialog = !dialog"
+          ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
+        >
         <div v-for="(message, idx) in messages" :key="idx" class="mb-2">
           <div
             v-if="
@@ -115,9 +111,6 @@
               loggedInUser._id === (message.toUserId && message.toUserId._id)
             "
           >
-            <v-btn small color="error" text @click="dialog = !dialog"
-              ><v-icon left>mdi-close</v-icon>Cerrar chat</v-btn
-            >
             <v-card>
               <v-list-item class="header-card">
                 <v-list-item-avatar height="50" color="grey"
@@ -140,12 +133,11 @@
               </v-list-item>
               <v-divider></v-divider>
 
-              <v-card-title class="message-text">{{
-                message.text
-              }}</v-card-title>
-
               <div v-if="message.userId._id === loggedInUser._id">
-                <v-card-actions>
+                <v-card-title class="message-text">{{
+                  message.text
+                }}</v-card-title>
+                <v-card-actions class="mt-4">
                   <v-btn
                     small
                     class="mx-auto"
@@ -155,8 +147,10 @@
                   >
                 </v-card-actions>
               </div>
-              <v-divider></v-divider>
-              <div v-if="message.userId._id !== loggedInUser._id">
+              <div v-else>
+                <v-card-title class="message-to">{{
+                  message.text
+                }}</v-card-title>
                 <v-card-text color="#a7d7c5"
                   ><v-text-field
                     v-model="text"
@@ -173,6 +167,11 @@
                   >
                 </v-card-actions>
               </div>
+
+              <!--<div v-if="message.userId._id === loggedInUser._id"></div>
+              <v-divider></v-divider>
+              <div v-if="message.userId._id !== loggedInUser._id">
+              </div>-->
             </v-card>
           </div>
         </div>
@@ -213,7 +212,7 @@ export default {
   async asyncData({ $axios, params }) {
     console.log('-', params.id)
     const response = await $axios.$get(`/products/${params.id}`)
-    // console.log(response)
+
     return response
   },
   data() {
@@ -224,14 +223,7 @@ export default {
       messages: [],
       text: '',
       sheet: false,
-      favourites: '',
       isFavourite: false,
-      myIcon: {
-        color: '',
-      },
-      colors: {
-        purple: 'purple',
-      },
     }
   },
   computed: {
@@ -255,7 +247,7 @@ export default {
     },
     async showMessages() {
       const response = await this.$axios.$get(`/products/${this.id}/messages`)
-      // console.log(response)
+
       return response
     },
     async startChat(ownerId) {
@@ -263,28 +255,25 @@ export default {
         text: this.text,
         toUserId: ownerId,
       }
-      // const response =
+
       await this.$axios.$post(`/products/me/${this.id}/messages`, data)
-      // window.location.reload()
-      // return response
+      window.location.reload()
     },
     async createMessage(userId) {
       const data = {
         text: this.text,
         toUserId: userId,
       }
-      // const response =
+
       await this.$axios.$post(`/products/me/${this.id}/messages`, data)
-      // window.location.reload()
-      // window.scrollTo(0, document.body.scrollHeight)
-      // return response
+      window.location.reload()
     },
     async deleteMessage(id) {
       const response = confirm('Estás seguro de borrar el mensaje?')
       if (response) {
         await this.$axios.$delete(`/products/me/${this.id}/messages/${id}`)
       }
-      // window.location.reload()
+      window.location.reload()
     },
     addFavProduct(id) {
       const data = {
@@ -305,6 +294,12 @@ export default {
 .message-text {
   font-style: italic;
   font-size: 1em;
+}
+.message-to {
+  font-style: italic;
+  font-size: 1em;
+  color: #eee;
+  background-color: #5c8d89;
 }
 .header-card {
   background-color: #a7d7c5;

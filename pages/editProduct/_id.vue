@@ -35,7 +35,7 @@
             required
           ></v-text-field>
 
-          <v-btn block color="primary" nuxt @click="updateProduct">
+          <v-btn block color="#5c8d89" dark @click="updateProduct">
             Enviar
           </v-btn>
         </v-form>
