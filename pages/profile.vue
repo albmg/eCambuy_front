@@ -8,7 +8,7 @@
           >
           <v-divider></v-divider>
           <div>
-            <v-avatar class="mt-2" size="100"
+            <v-avatar class="mt-2 ml-2" size="100"
               ><v-img :src="loggedInUser.photo"> </v-img>
             </v-avatar>
           </div>
@@ -129,7 +129,6 @@ export default {
         photo: this.image,
       }
       const response = await this.$axios.$put('/users/me/', photoData)
-      // console.log(response)
       window.location.reload()
       return response
     },

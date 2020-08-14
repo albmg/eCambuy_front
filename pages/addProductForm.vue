@@ -7,7 +7,7 @@
           <v-text-field
             v-model="name"
             :rules="nameRules"
-            label="name"
+            label="nombre"
             prepend-inner-icon="mdi-fruit-cherries"
             required
           ></v-text-field>
@@ -18,23 +18,22 @@
             v-model="description"
             :rules="descriptionRules"
             :counter="325"
-            label="description"
+            label="descripci´n"
             prepend-inner-icon="mdi-card-text-outline"
             required
           ></v-textarea>
 
           <v-text-field
             v-model="price"
-            label="price"
+            label="precio"
             prepend-inner-icon="mdi-currency-eur"
-            suffix="/Kg"
           >
           </v-text-field>
 
           <v-text-field
             v-model="location"
             :rules="locationRules"
-            label="location"
+            label="localización"
             prepend-inner-icon="mdi-map-marker"
             required
           ></v-text-field>
@@ -61,23 +60,21 @@ export default {
       valid: false,
       name: '',
       nameRules: [
-        (v) => !!v || 'Name is required',
-        (v) => v.length <= 40 || 'Name must be less than 40 characters',
+        (v) => !!v || 'Nombre del producto requerido',
+        (v) => v.length <= 40 || 'Longitud máxima 40 caracteres',
       ],
       image: '',
-      imageRules: [(v) => !!v || 'Image is required'],
+      imageRules: [(v) => !!v || 'Imagen requerida'],
       description: '',
       descriptionRules: [
-        (v) => !!v || 'Description is required',
-        (v) =>
-          v.length <= 325 || 'Description must be less than 325 characters',
+        (v) => !!v || 'Descripción requerida',
+        (v) => v.length <= 325 || 'Logitud máxima de 325 caracteres',
       ],
       price: '',
       location: '',
       locationRules: [
-        (v) => !!v || 'Location is required',
-        (v) =>
-          v.length <= 325 || 'Description must be less than 325 characters',
+        (v) => !!v || 'Localización requerida',
+        (v) => v.length <= 150 || 'Longitud máxima 150 caracteres',
       ],
     }
   },
