@@ -18,7 +18,7 @@
             v-model="description"
             :rules="descriptionRules"
             :counter="325"
-            label="descripci´n"
+            label="descripción"
             prepend-inner-icon="mdi-card-text-outline"
             required
           ></v-textarea>
