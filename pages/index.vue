@@ -2,12 +2,24 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="10" class="mx-auto mb-4">
-        <div>
+        <div class="mx-auto mb-4">
           <h1 class="main-title text-center">
             Comercia con productos ecológicos
           </h1>
           <h2 class="second text-center">Locales, Saludables y Sabrosos</h2>
+          <div class="text-center mt-12">
+            <v-btn color="#ffa83a" dark nuxt to="search">
+              <v-icon left>mdi-eye</v-icon>
+              Busca los productos por localización
+            </v-btn>
+          </div>
+        </div>
 
+        <!--<div class="text-center">
+          <h2 class="secon">Últimos Productos</h2>
+        </div>-->
+        <ProductSlider />
+        <div>
           <v-col cols="12" md="6" class="mx-auto">
             <div class="text-center mt-12 mb-8">
               <span class="call mb-4">Para comprar o vender productos</span>
@@ -19,18 +31,12 @@
             </div>
           </v-col>
         </div>
-
-        <!--<div class="text-center">
-          <h2 class="secon">Últimos Productos</h2>
-        </div>-->
-        <ProductSlider />
-
-        <div class="text-center mt-12">
+        <!--<div class="text-center mt-12">
           <v-btn color="#ffa83a" dark nuxt to="productList">
             <v-icon left>mdi-eye</v-icon>
             Ver todos los productos
           </v-btn>
-        </div>
+        </div>-->
       </v-col>
     </v-row>
   </v-container>

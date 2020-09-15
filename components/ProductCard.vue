@@ -20,7 +20,7 @@
       >
       <v-card-subtitle class="pb-0 mb-2">
         <v-icon color="#5c8d89" left>mdi-google-maps</v-icon>
-        {{ products.location }}</v-card-subtitle
+        {{ products.island }}</v-card-subtitle
       >
       <v-divider></v-divider>
       <v-card-actions>

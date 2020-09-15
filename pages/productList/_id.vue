@@ -46,8 +46,8 @@
           {{ price }} Kg</v-card-subtitle
         >
         <v-card-subtitle class="pb-0 mb-2"
-          ><v-icon color="#5c8d89" left>mdi-google-maps</v-icon> Municipio:
-          {{ location }}</v-card-subtitle
+          ><v-icon color="#5c8d89" left>mdi-google-maps</v-icon> Isla:
+          {{ island }}</v-card-subtitle
         >
 
         <v-card-actions>

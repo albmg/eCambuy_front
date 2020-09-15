@@ -28,12 +28,23 @@
 
           <v-text-field v-model="price" label="price"> </v-text-field>
 
-          <v-text-field
+          <!--<v-text-field
             v-model="location"
             :rules="locationRules"
             label="location"
             required
-          ></v-text-field>
+          ></v-text-field>-->
+
+          <v-select
+            v-model="island"
+            :rules="islandRules"
+            :items="islands"
+            menu-props="auto"
+            label="Seleccione Isla"
+            prepend-inner-icon="mdi-map-marker"
+            hide-details
+            single-line
+          ></v-select>
 
           <v-btn block color="#5c8d89" dark @click="updateProduct">
             Enviar
@@ -65,11 +76,25 @@ export default {
           v.length <= 325 || 'Description must be less than 325 characters',
       ],
       price: '',
-      location: '',
-      locationRules: [
-        (v) => !!v || 'Location is required',
-        (v) =>
-          v.length <= 325 || 'Description must be less than 325 characters',
+      island: '',
+      islandRules: [(v) => !!v || 'Isla es requerida'],
+      items: [
+        { text: 'Island 1' },
+        { text: 'Island 2' },
+        { text: 'Island 3' },
+        { text: 'Island 4' },
+        { text: 'Island 5' },
+        { text: 'Island 6' },
+        { text: 'Island 7' },
+      ],
+      islands: [
+        'El Hierro',
+        'Fuerteventura',
+        'Gran Canaria',
+        'Lanzarote',
+        'La Gomera',
+        'La Palma',
+        'Tenerife',
       ],
     }
   },
@@ -79,7 +104,7 @@ export default {
     this.image = response.image
     this.description = response.description
     this.price = response.price
-    this.location = response.location
+    this.island = response.island
   },
   methods: {
     async updateProduct() {
@@ -88,7 +113,7 @@ export default {
         image: this.image,
         description: this.description,
         price: this.price,
-        location: this.location,
+        island: this.island,
       }
       await this.$axios.$put(`/products/me/${this.id}`, data)
       this.$router.push(`/productList/${this.id}`)

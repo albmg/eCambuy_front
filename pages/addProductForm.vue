@@ -30,13 +30,24 @@
           >
           </v-text-field>
 
-          <v-text-field
+          <!--<v-text-field
             v-model="location"
             :rules="locationRules"
             label="localización"
             prepend-inner-icon="mdi-map-marker"
             required
-          ></v-text-field>
+          ></v-text-field>-->
+
+          <v-select
+            v-model="island"
+            :rules="islandRules"
+            :items="islands"
+            menu-props="auto"
+            label="Seleccione Isla"
+            prepend-inner-icon="mdi-map-marker"
+            hide-details
+            single-line
+          ></v-select>
 
           <v-btn block color="#5c8d89" dark nuxt @click="createProduct">
             Enviar
@@ -71,10 +82,25 @@ export default {
         (v) => v.length <= 325 || 'Logitud máxima de 325 caracteres',
       ],
       price: '',
-      location: '',
-      locationRules: [
-        (v) => !!v || 'Localización requerida',
-        (v) => v.length <= 150 || 'Longitud máxima 150 caracteres',
+      island: '',
+      islandRules: [(v) => !!v || 'Isla es requerida'],
+      items: [
+        { text: 'Island 1' },
+        { text: 'Island 2' },
+        { text: 'Island 3' },
+        { text: 'Island 4' },
+        { text: 'Island 5' },
+        { text: 'Island 6' },
+        { text: 'Island 7' },
+      ],
+      islands: [
+        'El Hierro',
+        'Fuerteventura',
+        'Gran Canaria',
+        'Lanzarote',
+        'La Gomera',
+        'La Palma',
+        'Tenerife',
       ],
     }
   },
@@ -85,7 +111,7 @@ export default {
         image: this.image,
         description: this.description,
         price: this.price,
-        location: this.location,
+        island: this.island,
       }
       const product = await this.$axios.$post('/products/me', data)
       console.log(product)
