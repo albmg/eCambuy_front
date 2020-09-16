@@ -28,7 +28,13 @@
           </v-col>
         </v-row>
 
-        <!--<v-btn @click="getMunicipalities">Ver</v-btn>-->
+        <v-btn
+          @click="
+            listByIsland()
+            listByMunicipality()
+          "
+          >Buscar</v-btn
+        >
       </v-col>
     </v-row>
   </v-container>
@@ -46,7 +52,8 @@ export default {
   computed: {
     selectedIslandItems() {
       return this.municipalities.filter(
-        (item) => item.isla.toString() === this.selectedIsland.toString()
+        (item) =>
+          item.islandCode._id.toString() === this.selectedIsland.toString()
       )
     },
   },
@@ -61,6 +68,22 @@ export default {
     },
     async getMunicipalities() {
       const response = await this.$axios.$get('/municipalities')
+      return response
+    },
+    async listByIsland() {
+      console.log(this.selectedIsland)
+      const response = await this.$axios.$get(
+        `/products/islands/${this.selectedIsland}`
+      )
+      console.log(response)
+      return response
+    },
+    async listByMunicipality() {
+      console.log(this.selectedMunicipality)
+      const response = await this.$axios.$get(
+        `/products/municipalities/${this.selectedMunicipality}`
+      )
+      console.log(response)
       return response
     },
   },
