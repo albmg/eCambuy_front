@@ -56,11 +56,11 @@ export default {
   },
   methods: {
     async getIslands() {
-      const response = await this.$axios.$get('/islas')
+      const response = await this.$axios.$get('/islands')
       return response
     },
     async getMunicipalities() {
-      const response = await this.$axios.$get('/municipios')
+      const response = await this.$axios.$get('/municipalities')
       return response
     },
   },
