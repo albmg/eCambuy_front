@@ -30,13 +30,33 @@
 
         <!--<v-btn @click="listByMunicipality">Buscar</v-btn>-->
         <div v-if="selectedMunicipality">
-          <v-btn @click="listByMunicipality">Buscar productos</v-btn>
+          <v-btn
+            color="#ffa83a"
+            class="text-center mb-4"
+            @click="listByMunicipality"
+            >Buscar productos</v-btn
+          >
         </div>
         <!--<div v-else><v-btn @click="listByIsland">como</v-btn></div>-->
+        <div v-if="filteredProducts.length > 0">
+          <v-divider></v-divider>
+          <v-col cols="12" md="6" class="mx-auto">
+            <v-sheet class="pa-2">
+              <v-text-field
+                v-model="search"
+                :placeholder="placeholder"
+                :filled="filled"
+                :clearable="clearable"
+                :counter="counterEn ? counter : false"
+                prepend-icon="mdi-magnify"
+              ></v-text-field>
+            </v-sheet>
+          </v-col>
+        </div>
 
         <v-row>
           <ProductCard
-            v-for="(product, idx) in productos"
+            v-for="(product, idx) in filteredProducts"
             :key="idx"
             :products="product"
             class="mb-2"
@@ -59,7 +79,13 @@ export default {
       selectedIsland: '',
       municipalities: [],
       selectedMunicipality: '',
-      productos: [],
+      products: [],
+      search: '',
+      placeholder: 'Filtra los productos por nombre',
+      filled: false,
+      clearable: false,
+      counterEn: false,
+      counter: 0,
     }
   },
   computed: {
@@ -67,6 +93,11 @@ export default {
       return this.municipalities.filter(
         (item) => item.islandCode._id === this.selectedIsland
       )
+    },
+    filteredProducts() {
+      return this.products.filter((product) => {
+        return product.name.match(this.search.toUpperCase())
+      })
     },
   },
 
@@ -93,10 +124,16 @@ export default {
     // },
     async listByMunicipality() {
       // console.log(this.selectedMunicipality)
-      this.productos = await this.$axios.$get(
+      this.products = await this.$axios.$get(
         `/products/municipalities/${this.selectedMunicipality}`
       )
     },
   },
 }
 </script>
+
+<style scoped>
+.paquito {
+  background-color: orange;
+}
+</style>
