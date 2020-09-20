@@ -65,8 +65,8 @@
       <v-spacer />
       <v-toolbar-items class="hidden-xs-only mt-6">
         <div class="mr-4">
-          <v-btn color="white" text to="/productList">
-            <v-icon left>mdi-format-list-checkbox</v-icon>Lista de productos
+          <v-btn color="white" text to="/search">
+            <v-icon left>mdi-magnify</v-icon>Buscar
           </v-btn>
         </div>
 
@@ -132,9 +132,9 @@ export default {
           to: '/',
         },
         {
-          icon: 'mdi-format-list-checkbox',
-          title: 'Lista de productos',
-          to: '/productList',
+          icon: 'mdi-magnify',
+          title: 'Buscar',
+          to: '/search',
         },
         {
           icon: 'mdi-currency-eur',

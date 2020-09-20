@@ -118,7 +118,7 @@ export default {
   methods: {
     async getProfile() {
       const response = await this.$axios.$get('/users/me/')
-      console.log(response)
+      // console.log(response)
       return response.productsCreated
     },
     showProduct(id) {

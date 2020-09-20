@@ -18,7 +18,7 @@
     </v-container>
 
     <h2 class="main-title text-center">Productos en venta</h2>
-    <v-container>
+    <!--<v-container>
       <v-row>
         <ProductCard
           v-for="(product, idx) in filteredProducts"
@@ -27,18 +27,18 @@
           class="mb-2"
         />
       </v-row>
-    </v-container>
+    </v-container>-->
   </v-main>
 </template>
 
 <script>
-import ProductCard from '~/components/ProductCard'
+// import ProductCard from '~/components/ProductCard'
 
 export default {
-  name: 'ProductList',
-  components: {
-    ProductCard,
-  },
+  // name: 'ProductList',
+  // components: {
+  //  ProductCard,
+  // },
   data() {
     return {
       products: [],

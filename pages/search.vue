@@ -28,35 +28,48 @@
           </v-col>
         </v-row>
 
-        <v-btn
-          @click="
-            listByIsland()
-            listByMunicipality()
-          "
-          >Buscar</v-btn
-        >
+        <!--<v-btn @click="listByMunicipality">Buscar</v-btn>-->
+        <div v-if="selectedMunicipality">
+          <v-btn @click="listByMunicipality">Buscar productos</v-btn>
+        </div>
+        <!--<div v-else><v-btn @click="listByIsland">como</v-btn></div>-->
+
+        <v-row>
+          <ProductCard
+            v-for="(product, idx) in productos"
+            :key="idx"
+            :products="product"
+            class="mb-2"
+          />
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
+import ProductCard from '~/components/ProductCard'
+
 export default {
+  components: {
+    ProductCard,
+  },
   data() {
     return {
       islands: [],
       selectedIsland: '',
       municipalities: [],
       selectedMunicipality: '',
+      productos: [],
     }
   },
   computed: {
     selectedIslandItems() {
       return this.municipalities.filter(
-        (item) =>
-          item.islandCode._id.toString() === this.selectedIsland.toString()
+        (item) => item.islandCode._id === this.selectedIsland
       )
     },
   },
+
   async mounted() {
     this.islands = await this.getIslands()
     this.municipalities = await this.getMunicipalities()
@@ -70,21 +83,19 @@ export default {
       const response = await this.$axios.$get('/municipalities')
       return response
     },
-    async listByIsland() {
-      console.log(this.selectedIsland)
-      const response = await this.$axios.$get(
-        `/products/islands/${this.selectedIsland}`
-      )
-      console.log(response)
-      return response
-    },
+    // async listByIsland() {
+    //   console.log(this.selectedIsland)
+    //   const response = await this.$axios.$get(
+    //     `/products/islands/${this.selectedIsland}`
+    //   )
+    //   console.log(response)
+    //   return response
+    // },
     async listByMunicipality() {
-      console.log(this.selectedMunicipality)
-      const response = await this.$axios.$get(
+      // console.log(this.selectedMunicipality)
+      this.productos = await this.$axios.$get(
         `/products/municipalities/${this.selectedMunicipality}`
       )
-      console.log(response)
-      return response
     },
   },
 }

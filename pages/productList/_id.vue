@@ -42,14 +42,15 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-subtitle class="pb-0"
-          ><v-icon color="#5c8d89" left>mdi-currency-eur</v-icon> Precio:
+          ><v-icon color="#5c8d89" left>mdi-currency-eur</v-icon>
           {{ price }} Kg</v-card-subtitle
         >
         <v-card-subtitle class="pb-0 mb-2"
-          ><v-icon color="#5c8d89" left>mdi-google-maps</v-icon> Isla:
-          {{ island }}</v-card-subtitle
+          ><v-icon color="#5c8d89" left>mdi-google-maps</v-icon>
+          {{ location.name }} - {{ productIsland.name }}</v-card-subtitle
         >
 
+        <!-- Edit & delete product menu-->
         <v-card-actions>
           <v-col
             v-if="isAuthenticated && loggedInUser._id === owner._id"
@@ -228,9 +229,9 @@ import { mapGetters } from 'vuex'
 export default {
   middleware: 'auth',
   async asyncData({ $axios, params }) {
-    console.log('-', params.id)
+    // console.log('-', params.id)
     const response = await $axios.$get(`/products/${params.id}`)
-
+    // console.log('aqui', response)
     return response
   },
   data() {
