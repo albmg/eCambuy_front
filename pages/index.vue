@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="10" class="mx-auto mb-4">
-        <div class="mx-auto mb-4">
+        <div class="mx-auto mb-8">
           <h1 class="main-title text-center">
             Comercia con productos ecológicos
           </h1>
@@ -18,10 +18,12 @@
         <!--<div class="text-center">
           <h2 class="secon">Últimos Productos</h2>
         </div>-->
-        <ProductSlider />
+        <div class="mt-2">
+          <ProductSlider />
+        </div>
         <div>
           <v-col cols="12" md="6" class="mx-auto">
-            <div class="text-center mt-12 mb-8">
+            <div class="text-center mt-12 mt-8">
               <span class="call mb-4">Para comprar o vender productos</span>
 
               <v-btn small color="#ffa83a" text nuxt to="/signup"

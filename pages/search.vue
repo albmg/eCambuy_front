@@ -28,7 +28,6 @@
           </v-col>
         </v-row>
 
-        <!--<v-btn @click="listByMunicipality">Buscar</v-btn>-->
         <div v-if="selectedMunicipality">
           <v-btn
             color="#ffa83a"
@@ -37,7 +36,7 @@
             >Buscar productos</v-btn
           >
         </div>
-        <!--<div v-else><v-btn @click="listByIsland">como</v-btn></div>-->
+
         <div v-if="filteredProducts.length > 0">
           <v-divider></v-divider>
           <v-col cols="12" md="6" class="mx-auto">
@@ -131,9 +130,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.paquito {
-  background-color: orange;
-}
-</style>
