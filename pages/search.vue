@@ -4,29 +4,7 @@
       <v-col cols="12" md="10" class="mx-auto">
         <h1>Busca los productos por isla o municipio</h1>
 
-        <v-row>
-          <v-col cols="12" md="4">
-            <v-select
-              v-model="selectedIsland"
-              :items="islands"
-              item-text="name"
-              item-value="_id"
-              label="Seleccionar Isla"
-            >
-            </v-select>
-          </v-col>
-
-          <v-col cols="12" md="4">
-            <v-select
-              v-model="selectedMunicipality"
-              :items="selectedIslandItems"
-              item-text="name"
-              item-value="_id"
-              label="Seleccionar Municipio"
-            >
-            </v-select>
-          </v-col>
-        </v-row>
+        <SelectLocation />
 
         <div v-if="selectedMunicipality">
           <v-btn
@@ -41,6 +19,7 @@
           <v-divider></v-divider>
           <v-col cols="12" md="6" class="mx-auto">
             <v-sheet class="pa-2">
+              <v-spacer></v-spacer>
               <v-text-field
                 v-model="search"
                 :placeholder="placeholder"
@@ -66,18 +45,18 @@
   </v-container>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 import ProductCard from '~/components/ProductCard'
+import SelectLocation from '~/components/SelectLocation'
 
 export default {
   components: {
     ProductCard,
+    SelectLocation,
   },
   data() {
     return {
-      islands: [],
-      selectedIsland: '',
-      municipalities: [],
-      selectedMunicipality: '',
       products: [],
       search: '',
       placeholder: 'Filtra los productos por nombre',
@@ -88,41 +67,17 @@ export default {
     }
   },
   computed: {
-    selectedIslandItems() {
-      return this.municipalities.filter(
-        (item) => item.islandCode._id === this.selectedIsland
-      )
-    },
     filteredProducts() {
       return this.products.filter((product) => {
         return product.name.match(this.search.toUpperCase())
       })
     },
+    ...mapState(['selectedMunicipality']),
   },
 
-  async mounted() {
-    this.islands = await this.getIslands()
-    this.municipalities = await this.getMunicipalities()
-  },
   methods: {
-    async getIslands() {
-      const response = await this.$axios.$get('/islands')
-      return response
-    },
-    async getMunicipalities() {
-      const response = await this.$axios.$get('/municipalities')
-      return response
-    },
-    // async listByIsland() {
-    //   console.log(this.selectedIsland)
-    //   const response = await this.$axios.$get(
-    //     `/products/islands/${this.selectedIsland}`
-    //   )
-    //   console.log(response)
-    //   return response
-    // },
     async listByMunicipality() {
-      // console.log(this.selectedMunicipality)
+      console.log(this.selectedMunicipality)
       this.products = await this.$axios.$get(
         `/products/municipalities/${this.selectedMunicipality}`
       )

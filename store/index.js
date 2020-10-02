@@ -6,4 +6,12 @@ export const getters = {
   loggedInUser(state) {
     return state.auth.user
   },
+
+  // showMunicipalities(state) {
+  //  console.log(state.municipalities)
+  //  console.log('paquete', state.selectedIsland)
+  //  return state.municipalities.filter(
+  //    (item) => item.islandCode._id === state.selectedIsland
+  //  )
+  // },
 }
