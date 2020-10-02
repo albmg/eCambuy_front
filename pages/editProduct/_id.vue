@@ -95,6 +95,9 @@ export default {
       await this.$axios.$put(`/products/me/${this.id}`, data)
       this.$router.push(`/productList/${this.id}`)
     },
+    setImageURL(imageURL) {
+      this.image = imageURL
+    },
   },
 }
 </script>
