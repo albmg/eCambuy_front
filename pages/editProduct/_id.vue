@@ -11,12 +11,10 @@
             required
           ></v-text-field>
 
-          <v-text-field
-            v-model="image"
-            :rules="imageRules"
-            label="image"
-            required
-          ></v-text-field>
+          <p>
+            Modificar imagen:
+            <SelectImage v-model="image" @imageURL="setImageURL" />
+          </p>
 
           <v-textarea
             v-model="description"
@@ -28,23 +26,7 @@
 
           <v-text-field v-model="price" label="price"> </v-text-field>
 
-          <!--<v-text-field
-            v-model="location"
-            :rules="locationRules"
-            label="location"
-            required
-          ></v-text-field>-->
-
-          <v-select
-            v-model="island"
-            :rules="islandRules"
-            :items="islands"
-            menu-props="auto"
-            label="Seleccione Isla"
-            prepend-inner-icon="mdi-map-marker"
-            hide-details
-            single-line
-          ></v-select>
+          <SelectLocation />
 
           <v-btn block color="#5c8d89" dark @click="updateProduct">
             Enviar
@@ -56,8 +38,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+import SelectImage from '~/components/SelectImage'
+import SelectLocation from '~/components/SelectLocation'
+
 export default {
   middleware: 'auth',
+  components: {
+    SelectImage,
+    SelectLocation,
+  },
   data() {
     return {
       id: this.$route.params.id,
@@ -76,27 +67,10 @@ export default {
           v.length <= 325 || 'Description must be less than 325 characters',
       ],
       price: '',
-      island: '',
-      islandRules: [(v) => !!v || 'Isla es requerida'],
-      items: [
-        { text: 'Island 1' },
-        { text: 'Island 2' },
-        { text: 'Island 3' },
-        { text: 'Island 4' },
-        { text: 'Island 5' },
-        { text: 'Island 6' },
-        { text: 'Island 7' },
-      ],
-      islands: [
-        'El Hierro',
-        'Fuerteventura',
-        'Gran Canaria',
-        'Lanzarote',
-        'La Gomera',
-        'La Palma',
-        'Tenerife',
-      ],
     }
+  },
+  computed: {
+    ...mapState(['selectedIsland', 'selectedMunicipality']),
   },
   async created() {
     const response = await this.$axios.$get(`/products/${this.id}`)
@@ -104,8 +78,10 @@ export default {
     this.image = response.image
     this.description = response.description
     this.price = response.price
-    this.island = response.island
+    this.selectedIsland = response.productIsland
+    this.selectedMunicipality = response.location
   },
+
   methods: {
     async updateProduct() {
       const data = {
@@ -113,7 +89,8 @@ export default {
         image: this.image,
         description: this.description,
         price: this.price,
-        island: this.island,
+        location: this.selectedMunicipality,
+        productIsland: this.selectedIsland,
       }
       await this.$axios.$put(`/products/me/${this.id}`, data)
       this.$router.push(`/productList/${this.id}`)

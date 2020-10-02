@@ -38,16 +38,7 @@
             required
           ></v-text-field>-->
 
-          <v-select
-            v-model="island"
-            :rules="islandRules"
-            :items="islands"
-            menu-props="auto"
-            label="Seleccione Isla"
-            prepend-inner-icon="mdi-map-marker"
-            hide-details
-            single-line
-          ></v-select>
+          <SelectLocation />
 
           <v-btn block color="#5c8d89" dark nuxt @click="createProduct">
             Enviar
@@ -59,12 +50,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import SelectImage from '~/components/SelectImage'
+import SelectLocation from '~/components/SelectLocation'
 
 export default {
   middleware: 'auth',
   components: {
     SelectImage,
+    SelectLocation,
   },
   data() {
     return {
@@ -82,27 +77,10 @@ export default {
         (v) => v.length <= 325 || 'Logitud máxima de 325 caracteres',
       ],
       price: '',
-      island: '',
-      islandRules: [(v) => !!v || 'Isla es requerida'],
-      items: [
-        { text: 'Island 1' },
-        { text: 'Island 2' },
-        { text: 'Island 3' },
-        { text: 'Island 4' },
-        { text: 'Island 5' },
-        { text: 'Island 6' },
-        { text: 'Island 7' },
-      ],
-      islands: [
-        'El Hierro',
-        'Fuerteventura',
-        'Gran Canaria',
-        'Lanzarote',
-        'La Gomera',
-        'La Palma',
-        'Tenerife',
-      ],
     }
+  },
+  computed: {
+    ...mapState(['selectedIsland', 'selectedMunicipality']),
   },
   methods: {
     async createProduct() {
@@ -111,7 +89,8 @@ export default {
         image: this.image,
         description: this.description,
         price: this.price,
-        island: this.island,
+        location: this.selectedMunicipality,
+        productIsland: this.selectedIsland,
       }
       const product = await this.$axios.$post('/products/me', data)
       console.log(product)
