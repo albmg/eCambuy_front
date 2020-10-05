@@ -10,10 +10,18 @@ export const getMunicipalities = function ({ commit }) {
   })
 }
 
-// export const listByMunicipality = function ({ commit }, selectedMunicipality) {
-//  this.$axios
-//    .$get(`/products/municipalities/${this.selectedMunicipality}`)
+// export const listByMunicipality = async function ({ commit }, municipality) {
+//  await this.$axios
+//    .$get(`/products/municipalities/${municipality}`)
 //    .then((response) => {
 //      commit('SET_MUNICIPALITY', response)
 //    })
 // }
+
+export const setProducts = function ({ commit }, municipality) {
+  this.$axios
+    .$get(`/products/municipalities/${municipality}`)
+    .then((response) => {
+      commit('SET_PRODUCTS', response)
+    })
+}

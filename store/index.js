@@ -7,11 +7,7 @@ export const getters = {
     return state.auth.user
   },
 
-  // showMunicipalities(state) {
-  //  console.log(state.municipalities)
-  //  console.log('paquete', state.selectedIsland)
-  //  return state.municipalities.filter(
-  //    (item) => item.islandCode._id === state.selectedIsland
-  //  )
-  // },
+  getProducts(state) {
+    return state.products
+  },
 }

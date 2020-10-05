@@ -14,6 +14,6 @@ export const SET_MUNICIPALITY = (state, municipality) => {
   state.selectedMunicipality = municipality
 }
 
-// export const SET_MUNICIPALITY = (state, selectedMunicipality) => {
-//  state.selectedMunicipality = selectedMunicipality
-// }
+export const SET_PRODUCTS = (state, products) => {
+  state.products = products
+}

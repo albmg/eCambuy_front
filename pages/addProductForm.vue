@@ -30,14 +30,6 @@
           >
           </v-text-field>
 
-          <!--<v-text-field
-            v-model="location"
-            :rules="locationRules"
-            label="localización"
-            prepend-inner-icon="mdi-map-marker"
-            required
-          ></v-text-field>-->
-
           <SelectLocation />
 
           <v-btn block color="#5c8d89" dark nuxt @click="createProduct">

@@ -7,10 +7,7 @@
         <SelectLocation />
 
         <div v-if="selectedMunicipality">
-          <v-btn
-            color="#ffa83a"
-            class="text-center mb-4"
-            @click="listByMunicipality"
+          <v-btn color="#ffa83a" class="text-center mb-4" @click="showProducts"
             >Buscar productos</v-btn
           >
         </div>
@@ -45,7 +42,7 @@
   </v-container>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 import ProductCard from '~/components/ProductCard'
 import SelectLocation from '~/components/SelectLocation'
@@ -57,7 +54,6 @@ export default {
   },
   data() {
     return {
-      products: [],
       search: '',
       placeholder: 'Filtra los productos por nombre',
       filled: false,
@@ -68,19 +64,19 @@ export default {
   },
   computed: {
     filteredProducts() {
-      return this.products.filter((product) => {
+      return this.getProducts.filter((product) => {
         return product.name.match(this.search.toUpperCase())
       })
     },
     ...mapState(['selectedMunicipality']),
+    ...mapGetters(['getProducts']),
   },
 
   methods: {
-    async listByMunicipality() {
-      console.log(this.selectedMunicipality)
-      this.products = await this.$axios.$get(
-        `/products/municipalities/${this.selectedMunicipality}`
-      )
+    ...mapActions(['setProducts']),
+
+    async showProducts() {
+      this.products = await this.setProducts(this.selectedMunicipality)
     },
   },
 }
