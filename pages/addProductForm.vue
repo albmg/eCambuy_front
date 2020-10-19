@@ -24,6 +24,9 @@
           ></v-textarea>
 
           <SelectProcedure />
+
+          {{ selectedProcedure }}
+
           <div v-if="selectedProcedure === 'Venta'">
             <v-text-field
               v-model="price"
@@ -82,7 +85,7 @@ export default {
       'selectedMunicipality',
       'selectedProcedure',
     ]),
-    // ...mapGetters(['getSelectedIsland']),
+    // ...mapGetters(['getProcedures']),
   },
   methods: {
     async createProduct() {

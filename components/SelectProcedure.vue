@@ -7,6 +7,7 @@
         item-text="procedureName"
         item-value="_id"
         label="Seleccionar trámite"
+        :clearable="true"
         @input="setTag"
       >
       </v-select>

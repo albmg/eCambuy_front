@@ -11,10 +11,6 @@ export const getters = {
     return state.products
   },
 
-  getProducts2(state) {
-    return state.products2
-  },
-
   getSelectedIsland(state) {
     return state.selectedIsland
   },
@@ -22,4 +18,10 @@ export const getters = {
   getSelectedProcedure(state) {
     return state.selectedProcedure
   },
+
+  // getProcedures(state) {
+  //  return state.procedures.map((item) => {
+  //    item._id.match(this.selectedProcedure)
+  //  })
+  // },
 }
