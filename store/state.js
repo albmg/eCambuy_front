@@ -4,4 +4,6 @@ export default {
   selectedIsland: '',
   selectedMunicipality: '',
   products: [],
+  procedures: [],
+  selectedProcedure: '',
 }

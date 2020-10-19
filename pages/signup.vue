@@ -14,6 +14,7 @@
 
           <v-text-field
             v-model="password"
+            class="mt-4"
             :rules="passwordRules"
             type="password"
             label="Contraseña"
@@ -22,6 +23,7 @@
 
           <v-text-field
             v-model="repeatPassword"
+            class="mt-4"
             :rules="[checkPasswords]"
             type="password"
             label="Repetir Contraseña"
@@ -35,7 +37,7 @@
             required
           ></v-text-field>
 
-          <div class="text-center">
+          <div class="text-center mt-4">
             <v-btn
               type="submit"
               block

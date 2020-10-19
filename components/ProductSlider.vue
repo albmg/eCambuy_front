@@ -14,6 +14,9 @@
         <div class="title">
           {{ lastProduct.name }}
         </div>
+        <div class="subtitle">
+          {{ lastProduct.productIsland.name }}
+        </div>
       </v-carousel-item>
     </v-carousel>
   </v-card>
@@ -42,14 +45,26 @@ export default {
 
 <style scoped>
 .title {
-  position: absolute;
   bottom: 50px;
   background-color: rgba(0, 0, 0, 0.3);
   font-size: 2em;
+  width: 50%;
+}
+.subtitle {
+  top: -1px;
+  right: -1px;
+  background-color: #74b49b;
+  font-size: 1em;
+  font-weight: bold;
+  color: white;
+  width: 30%;
+}
+.title,
+.subtitle {
+  position: absolute;
   padding: 10px;
   text-align: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  width: 50%;
 }
 </style>

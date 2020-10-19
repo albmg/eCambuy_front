@@ -10,4 +10,16 @@ export const getters = {
   getProducts(state) {
     return state.products
   },
+
+  getProducts2(state) {
+    return state.products2
+  },
+
+  getSelectedIsland(state) {
+    return state.selectedIsland
+  },
+
+  getSelectedProcedure(state) {
+    return state.selectedProcedure
+  },
 }

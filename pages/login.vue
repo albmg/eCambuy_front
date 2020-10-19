@@ -7,6 +7,7 @@
           <h4>Inicia sesión para comprar y vender productos</h4>
           <v-text-field
             v-model="email"
+            class="mt-4"
             :rules="emailRules"
             label="E-mail"
             required
@@ -14,6 +15,7 @@
 
           <v-text-field
             v-model="password"
+            class="mt-4"
             :rules="passwordRules"
             :type="showPassword ? 'text' : 'password'"
             label="Contraseña"
@@ -22,7 +24,7 @@
             @click:append="showPassword = !showPassword"
           ></v-text-field>
 
-          <div class="text-center">
+          <div class="text-center mt-8">
             <v-btn block color="#5c8d89" dark nuxt @click="login">
               Enviar
             </v-btn>
@@ -52,13 +54,13 @@ export default {
       valid: false,
       password: '',
       passwordRules: [
-        (v) => !!v || 'Password is required',
-        (v) => v.length >= 6 || 'Password must be at least 6 characters',
+        (v) => !!v || 'Contraseña requerida',
+        (v) => v.length >= 6 || 'La contraseña es demasiado corta',
       ],
       email: '',
       emailRules: [
-        (v) => !!v || 'E-mail is required',
-        (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+        (v) => !!v || 'e-mail requerido',
+        (v) => /.+@.+/.test(v) || 'El e-mail debe tener un formato válido',
       ],
     }
   },

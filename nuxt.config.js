@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  // loading: false,
   axios: {
     baseURL: `${process.env.VUE_APP_API}`,
   },

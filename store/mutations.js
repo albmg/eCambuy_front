@@ -17,3 +17,11 @@ export const SET_MUNICIPALITY = (state, municipality) => {
 export const SET_PRODUCTS = (state, products) => {
   state.products = products
 }
+
+export const SET_PROCEDURES = (state, procedures) => {
+  state.procedures = procedures
+}
+
+export const SET_PROCEDURE = (state, procedure) => {
+  state.selectedProcedure = procedure
+}

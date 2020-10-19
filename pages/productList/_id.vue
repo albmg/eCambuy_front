@@ -232,6 +232,7 @@ export default {
     // console.log('-', params.id)
     const response = await $axios.$get(`/products/${params.id}`)
     // console.log('aqui', response)
+
     return response
   },
   data() {

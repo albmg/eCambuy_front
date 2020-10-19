@@ -9,15 +9,23 @@
       <v-divider></v-divider>
 
       <v-card-text class="text--primary">
-        <v-icon color="#5c8d89" left>mdi-card-text-outline</v-icon>
+        <v-icon color="#5c8d89" left>mdi-information-variant</v-icon>
         {{ products.description }}
       </v-card-text>
       <v-divider></v-divider>
 
-      <v-card-subtitle class="pb-0"
-        ><v-icon color="#5c8d89" left>mdi-currency-eur</v-icon>
-        {{ products.price }} Kg</v-card-subtitle
-      >
+      <v-card-subtitle class="pb-0 mb-2"
+        ><v-icon color="#5c8d89" left>mdi-form-select</v-icon>
+        {{ products.procedure.procedureName }}
+        <div v-if="products.procedure.procedureName === 'Venta'">
+          <v-card-subtitle class="pb-0"
+            ><v-icon color="#5c8d89" left>mdi-currency-eur</v-icon>
+            {{ products.price }} kg</v-card-subtitle
+          >
+        </div>
+      </v-card-subtitle>
+
+      <v-divider></v-divider>
       <v-card-subtitle class="pb-0 mb-2">
         <v-icon color="#5c8d89" left>mdi-google-maps</v-icon>
         {{ products.location.name }} -

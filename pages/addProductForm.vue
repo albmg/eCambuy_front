@@ -23,12 +23,15 @@
             required
           ></v-textarea>
 
-          <v-text-field
-            v-model="price"
-            label="precio"
-            prepend-inner-icon="mdi-currency-eur"
-          >
-          </v-text-field>
+          <SelectProcedure />
+          <div v-if="selectedProcedure === 'Venta'">
+            <v-text-field
+              v-model="price"
+              label="precio"
+              prepend-inner-icon="mdi-currency-eur"
+            >
+            </v-text-field>
+          </div>
 
           <SelectLocation />
 
@@ -46,12 +49,14 @@ import { mapState } from 'vuex'
 
 import SelectImage from '~/components/SelectImage'
 import SelectLocation from '~/components/SelectLocation'
+import SelectProcedure from '~/components/SelectProcedure'
 
 export default {
   middleware: 'auth',
   components: {
     SelectImage,
     SelectLocation,
+    SelectProcedure,
   },
   data() {
     return {
@@ -72,7 +77,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selectedIsland', 'selectedMunicipality']),
+    ...mapState([
+      'selectedIsland',
+      'selectedMunicipality',
+      'selectedProcedure',
+    ]),
+    // ...mapGetters(['getSelectedIsland']),
   },
   methods: {
     async createProduct() {
@@ -83,6 +93,7 @@ export default {
         price: this.price,
         location: this.selectedMunicipality,
         productIsland: this.selectedIsland,
+        procedure: this.selectedProcedure,
       }
       const product = await this.$axios.$post('/products/me', data)
       console.log(product)
