@@ -38,7 +38,26 @@
               <v-expansion-panel-content class="text-center">
                 <SelectProcedure />
 
-                <div v-if="selectedProcedure === 'Venta'">
+                <div v-for="(procedure, idx) in checkProcedure" :key="idx">
+                  <div v-if="procedure === 'Venta'">
+                    <v-text-field
+                      v-model="price"
+                      label="precio"
+                      prepend-inner-icon="mdi-currency-eur"
+                    >
+                    </v-text-field>
+                  </div>
+                  <div v-if="procedure === 'Otros'">
+                    <v-text-field
+                      v-model="more"
+                      label="otros"
+                      prepend-inner-icon="mdi-form-select"
+                    >
+                    </v-text-field>
+                  </div>
+                </div>
+
+                <!--<div v-if="selectedProcedure === 'Venta'">
                   <v-expansion-panel>
                     <v-text-field
                       v-model="price"
@@ -56,7 +75,7 @@
                       required
                     ></v-text-field>
                   </v-expansion-panel>
-                </div>
+                </div>-->
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -143,7 +162,13 @@ export default {
       'selectedIsland',
       'selectedMunicipality',
       'selectedProcedure',
+      'procedures',
     ]),
+    checkProcedure() {
+      return this.procedures.find((element) => {
+        return element._id === this.selectedProcedure
+      })
+    },
   },
   async created() {
     // console.log('tramite ->', this.selectedProcedure)
