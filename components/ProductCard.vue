@@ -23,6 +23,12 @@
             {{ products.price }} kg</v-card-subtitle
           >
         </div>
+        <div v-if="products.procedure.procedureName === 'Otros'">
+          <v-card-subtitle class="pb-0"
+            ><v-icon color="#5c8d89" left>mdi-comment-edit-outline</v-icon>
+            {{ products.more }}
+          </v-card-subtitle>
+        </div>
       </v-card-subtitle>
 
       <v-divider></v-divider>

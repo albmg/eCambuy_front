@@ -25,15 +25,23 @@
 
           <SelectProcedure />
 
-          {{ selectedProcedure }}
-
-          <div v-if="selectedProcedure === 'Venta'">
-            <v-text-field
-              v-model="price"
-              label="precio"
-              prepend-inner-icon="mdi-currency-eur"
-            >
-            </v-text-field>
+          <div v-for="(procedure, idx) in checkProcedure" :key="idx">
+            <div v-if="procedure === 'Venta'">
+              <v-text-field
+                v-model="price"
+                label="precio"
+                prepend-inner-icon="mdi-currency-eur"
+              >
+              </v-text-field>
+            </div>
+            <div v-if="procedure === 'Otros'">
+              <v-text-field
+                v-model="more"
+                label="otros"
+                prepend-inner-icon="mdi-form-select"
+              >
+              </v-text-field>
+            </div>
           </div>
 
           <SelectLocation />
@@ -77,6 +85,7 @@ export default {
         (v) => v.length <= 325 || 'Logitud máxima de 325 caracteres',
       ],
       price: '',
+      more: '',
     }
   },
   computed: {
@@ -84,7 +93,14 @@ export default {
       'selectedIsland',
       'selectedMunicipality',
       'selectedProcedure',
+      'procedures',
     ]),
+    checkProcedure() {
+      return this.procedures.find((element) => {
+        return element._id === this.selectedProcedure
+      })
+    },
+
     // ...mapGetters(['getProcedures']),
   },
   methods: {
@@ -94,6 +110,7 @@ export default {
         image: this.image,
         description: this.description,
         price: this.price,
+        more: this.more,
         location: this.selectedMunicipality,
         productIsland: this.selectedIsland,
         procedure: this.selectedProcedure,

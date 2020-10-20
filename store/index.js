@@ -20,8 +20,8 @@ export const getters = {
   },
 
   // getProcedures(state) {
-  //  return state.procedures.map((item) => {
-  //    item._id.match(this.selectedProcedure)
+  //  return state.procedures.find((item) => {
+  //    return item._id === this.selectedProcedure
   //  })
   // },
 }

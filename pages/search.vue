@@ -23,7 +23,7 @@
               dark
               class="text-center mb-4"
               @click="listByProcedure"
-              >Buscar productosS</v-btn
+              >Buscar productos</v-btn
             >
           </div>
         </div>

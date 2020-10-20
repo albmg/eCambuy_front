@@ -42,9 +42,21 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-subtitle class="pb-0"
-          ><v-icon color="#5c8d89" left>mdi-currency-eur</v-icon>
-          {{ price }} Kg</v-card-subtitle
-        >
+          ><v-icon color="#5c8d89" left>mdi-form-select</v-icon>
+          {{ procedure.procedureName }}
+        </v-card-subtitle>
+        <div v-if="procedure.procedureName === 'Venta'">
+          <v-card-subtitle class="pb-0"
+            ><v-icon color="#5c8d89" left>mdi-currency-eur</v-icon>
+            {{ price }} Kg</v-card-subtitle
+          >
+        </div>
+        <div v-if="procedure.procedureName === 'Otros'">
+          <v-card-subtitle class="pb-0"
+            ><v-icon color="#5c8d89" left>mdi-comment-edit-outline</v-icon>
+            {{ more }}
+          </v-card-subtitle>
+        </div>
         <v-card-subtitle class="pb-0 mb-2"
           ><v-icon color="#5c8d89" left>mdi-google-maps</v-icon>
           {{ location.name }} - {{ productIsland.name }}</v-card-subtitle
