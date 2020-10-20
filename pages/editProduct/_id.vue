@@ -38,8 +38,8 @@
               <v-expansion-panel-content class="text-center">
                 <SelectProcedure />
 
-                <div v-for="(procedure, idx) in checkProcedure" :key="idx">
-                  <div v-if="procedure === 'Venta'">
+                <div v-for="(proc, idx) in checkProcedure" :key="idx">
+                  <div v-if="proc === 'Venta'">
                     <v-text-field
                       v-model="price"
                       label="precio"
@@ -47,7 +47,7 @@
                     >
                     </v-text-field>
                   </div>
-                  <div v-if="procedure === 'Otros'">
+                  <div v-if="proc === 'Otros'">
                     <v-text-field
                       v-model="more"
                       label="otros"
@@ -56,26 +56,6 @@
                     </v-text-field>
                   </div>
                 </div>
-
-                <!--<div v-if="selectedProcedure === 'Venta'">
-                  <v-expansion-panel>
-                    <v-text-field
-                      v-model="price"
-                      label="precio"
-                      prepend-inner-icon="mdi-currency-eur"
-                    >
-                    </v-text-field>
-                  </v-expansion-panel>
-                </div>
-                <div v-if="selectedProcedure === 'Otros'">
-                  <v-expansion-panel>
-                    <v-text-field
-                      v-model="more"
-                      label="Añade información"
-                      required
-                    ></v-text-field>
-                  </v-expansion-panel>
-                </div>-->
               </v-expansion-panel-content>
             </v-expansion-panel>
           </v-expansion-panels>
@@ -83,18 +63,12 @@
           <div v-if="procedure.procedureName === 'Venta'" class="mb-2">
             <p>precio:</p>
             <v-icon class="mr-2">mdi-currency-eur</v-icon>{{ price }} /Kg
-            <!--<v-text-field
-              v-model="price"
-              label="precio"
-              prepend-inner-icon="mdi-currency-eur"
-            >
-            </v-text-field>-->
           </div>
 
           <v-divider></v-divider>
 
           <div class="mt-4 mb-4">
-            <p>localización:</p>
+            <p>Localización:</p>
 
             {{ island.name }} - {{ location.name }}
           </div>
@@ -171,10 +145,6 @@ export default {
     },
   },
   async created() {
-    // console.log('tramite ->', this.selectedProcedure)
-    // console.log('municipio ->', this.selectedMunicipality)
-    // console.log('isla ->', this.selectedIsland)
-
     const response = await this.$axios.$get(`/products/${this.id}`)
     console.log('a ver si encuentro el fallo', response)
     this.name = response.name
