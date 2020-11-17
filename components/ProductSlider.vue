@@ -4,7 +4,9 @@
       :continuous="true"
       :cycle="cycle"
       :show-arrows="true"
-      height="300"
+      height="450"
+      hide-delimiter-background
+      delimiter-icon="mdi-minus"
     >
       <v-carousel-item
         v-for="(lastProduct, idx) in lastProducts"
@@ -14,9 +16,24 @@
         <div class="title">
           {{ lastProduct.name }}
         </div>
-        <div class="subtitle">
-          {{ lastProduct.location.name }} - {{ lastProduct.productIsland.name }}
-        </div>
+
+        <v-list dark>
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-img :src="lastProduct.owner.photo" width="50px"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title>{{
+                lastProduct.owner.username
+              }}</v-list-item-title>
+            </v-list-item-content>
+            <v-icon class="hidden-xs-only">mdi-google-maps</v-icon>
+            <v-list-item-action class="hidden-xs-only">
+              {{ lastProduct.location.name }} -
+              {{ lastProduct.productIsland.name }}
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
       </v-carousel-item>
     </v-carousel>
   </v-card>
@@ -45,26 +62,18 @@ export default {
 
 <style scoped>
 .title {
-  bottom: 50px;
   background-color: rgba(0, 0, 0, 0.3);
+  bottom: 50px;
   font-size: 1em !important;
   width: 50%;
-}
-.subtitle {
-  top: -1px;
-  right: -1px;
-  background-color: #74b49b;
-  font-size: 1em;
-  font-weight: bold;
-  color: white;
-  width: 50%;
-}
-.title,
-.subtitle {
   position: absolute;
   padding: 10px;
   text-align: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+.paco {
+  position: relative;
+  bottom: -300px;
 }
 </style>
