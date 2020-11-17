@@ -15,7 +15,7 @@
           {{ lastProduct.name }}
         </div>
         <div class="subtitle">
-          {{ lastProduct.productIsland.name }}
+          {{ lastProduct.location.name }} - {{ lastProduct.productIsland.name }}
         </div>
       </v-carousel-item>
     </v-carousel>
@@ -47,7 +47,7 @@ export default {
 .title {
   bottom: 50px;
   background-color: rgba(0, 0, 0, 0.3);
-  font-size: 2em;
+  font-size: 1em !important;
   width: 50%;
 }
 .subtitle {
@@ -57,7 +57,7 @@ export default {
   font-size: 1em;
   font-weight: bold;
   color: white;
-  width: 30%;
+  width: 50%;
 }
 .title,
 .subtitle {
