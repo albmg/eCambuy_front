@@ -34,11 +34,12 @@
             <v-col cols="12" md="4" class="mx-auto">
               <v-sheet class="pa-2">
                 <v-spacer></v-spacer>
+
                 <v-text-field
                   v-model="search"
                   :placeholder="placeholder"
                   :filled="filled"
-                  :clearable="clearable"
+                  :clearable="false"
                   :counter="counterEn ? counter : false"
                   prepend-icon="mdi-magnify"
                 ></v-text-field>
@@ -80,13 +81,13 @@ export default {
       filled: false,
       clearable: false,
       counterEn: false,
-      counter: 0,
+      counter: '',
     }
   },
   computed: {
     filteredProducts() {
       return this.getProducts.filter((product) => {
-        return product.name.match(this.search.toUpperCase())
+        return product.name.toLowerCase().match(this.search.toLowerCase())
       })
     },
 
