@@ -4,8 +4,11 @@
       <v-col cols="12" md="10" class="mx-auto">
         <h1>Busca los productos por isla o municipio</h1>
 
-        <SelectLocation />
-        <SelectProcedure />
+        <v-row>
+          <SelectLocation />
+
+          <SelectProcedure />
+        </v-row>
 
         <div v-if="selectedMunicipality">
           <div v-if="!selectedProcedure">
